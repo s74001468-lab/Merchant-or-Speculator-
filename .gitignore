@@ -1,0 +1,12 @@
+# Environment and secrets
+.env*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dependencies and build
+node_modules/
+dist/
+.vercel

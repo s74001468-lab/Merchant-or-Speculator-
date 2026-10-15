@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Купеческое Слово: Построй дело на века | Игра по ОРГ</title>
+  <meta name="description" content="Браузерная карточная бизнес-игра по курсу «Основы российской государственности» (Указ Президента РФ № 809 и Пентабазис). Авторы: Котухов С., Сиволод Д., Ветер М.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Google Fonts: Cyrillic Heritage & Modern Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Oranienbaum&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Yeseva+One&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Vintage Paper Texture & Decorative Edge -->
+  <div class="screen-frame-decor" aria-hidden="true"></div>
+
+  <div class="app-layout">
+    
+    <!-- 1. HEADER / ВЫВЕСКА -->
+    <header class="merchant-header" role="banner">
+      <div class="header-signboard">
+        <div class="signboard-emblem" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="36" height="36" fill="currentColor">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="#B8291E" stroke-width="2"/>
+            <circle cx="20" cy="20" r="14" fill="none" stroke="#C58B2B" stroke-width="1" stroke-dasharray="2 1.5"/>
+            <path d="M20 7 L23 15 L32 15 L25 21 L27 30 L20 25 L13 30 L15 21 L8 15 L17 15 Z" fill="#B8291E"/>
+          </svg>
+        </div>
+        <div class="signboard-text">
+          <div class="signboard-top-strip">
+            <span class="signboard-pill">ТОbg ВАРОВАНО 1882</span>
+            <span class="signboard-divider">•</span>
+            <span class="signboard-meta">ГИЛЬДIЯ МАЛАГО БИЗНЕСА</span>
+            <span class="signboard-divider">•</span>
+            <span class="signboard-meta">ПЕКАРНЯ «БУЛКА & ЧЕСТЬ»</span>
+          </div>
+          <h1 class="signboard-title">КУПЕЧЕСКОЕ СЛОВО</h1>
+          <p class="signboard-sub">Симулятор созидательного предпринимателя • Указ № 809 & Пентабазис в действии</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <!-- Live Action Buttons for Presenters -->
+        <button id="btnSound" class="vintage-btn icon-btn" title="Переключить звук [M]" aria-label="Переключить звук">
+          <span class="btn-icon" id="soundIcon">🔊</span>
+          <span class="btn-label-desktop">ЗВУКЪ</span>
+        </button>
+
+        <button id="btnQr" class="vintage-btn icon-btn" title="Показать QR-код для аудитории [Q]" aria-label="QR-код для зала">
+          <span class="btn-icon">📱</span>
+          <span class="btn-label-desktop">QR ДЛЯ ЗАЛА</span>
+        </button>
+
+        <button id="btnAbout" class="vintage-btn icon-btn" title="Справка по ОРГ и Указу № 809" aria-label="Справка по проекту">
+          <span class="btn-icon">📖</span>
+          <span class="btn-label-desktop">О ПРОЕКТЕ</span>
+        </button>
+
+        <!-- Turn Badge -->
+        <div class="turn-badge" id="turnBadge">
+          <span class="turn-label">ДѢЛО</span>
+          <span class="turn-value" id="turnValue">ХОДЪ 1 / 8</span>
+        </div>
+
+        <button id="btnRestart" class="vintage-btn btn-secondary" title="Начать заново [R]">
+          <span>ЗАНОВО</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. PENTABASIS RESOURCE BARS / ПАНЕЛЬ ПЕНТАБАЗИСА (3 ШКАЛЫ) -->
+    <section class="pentabasis-panel" aria-label="Шкалы ресурсов предпринимателя">
+      
+      <!-- Scale 1: Capital -->
+      <div class="scale-card scale-capital" id="cardScaleCapital">
+        <div class="scale-header">
+          <div class="scale-title-group">
+            <span class="scale-icon" aria-hidden="true">💰</span>
+            <div class="scale-titles">
+              <span class="scale-name">КАПИТАЛЪ</span>
+              <span class="scale-sub">Казна лавки • Выживаемость</span>
+            </div>
+          </div>
+          <div class="scale-meta-badge">
+            <span class="level-tag">ЧЕЛОВѢКЪ И СЕМЬЯ</span>
+            <div class="scale-readout">
+              <span class="scale-number" id="numCapital">50</span>
+              <span class="scale-max">/100</span>
+            </div>
+          </div>
+        </div>
+        <div class="meter-frame">
+          <div class="meter-track">
+            <div class="meter-fill fill-capital" id="barCapital" style="width: 50%;"></div>
+            <div class="meter-ghost" id="ghostCapital"></div>
+          </div>
+          <div class="meter-delta-pill" id="deltaCapital" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <!-- Scale 2: Honor -->
+      <div class="scale-card scale-honor" id="cardScaleHonor">
+        <div class="scale-header">
+          <div class="scale-title-group">
+            <span class="scale-icon" aria-hidden="true">📜</span>
+            <div class="scale-titles">
+              <span class="scale-name">ЧЕСТНОЕ ИМЯ</span>
+              <span class="scale-sub">Совесть • Слово • Репутація</span>
+            </div>
+          </div>
+          <div class="scale-meta-badge">
+            <span class="level-tag tag-cinnabar">ДУХОВНОЕ ВЫШЕ ВЫГОДЫ</span>
+            <div class="scale-readout">
+              <span class="scale-number" id="numHonor">50</span>
+              <span class="scale-max">/100</span>
+            </div>
+          </div>
+        </div>
+        <div class="meter-frame">
+          <div class="meter-track">
+            <div class="meter-fill fill-honor" id="barHonor" style="width: 50%;"></div>
+            <div class="meter-ghost" id="ghostHonor"></div>
+          </div>
+          <div class="meter-delta-pill" id="deltaHonor" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <!-- Scale 3: City Benefit -->
+      <div class="scale-card scale-city" id="cardScaleCity">
+        <div class="scale-header">
+          <div class="scale-title-group">
+            <span class="scale-icon" aria-hidden="true">🏛️</span>
+            <div class="scale-titles">
+              <span class="scale-name">БЛАГО ГОРОДА</span>
+              <span class="scale-sub">Польза людямъ • Держава</span>
+            </div>
+          </div>
+          <div class="scale-meta-badge">
+            <span class="level-tag tag-emerald">ОБЩЕСТВО И СТРАНА</span>
+            <div class="scale-readout">
+              <span class="scale-number" id="numCity">50</span>
+              <span class="scale-max">/100</span>
+            </div>
+          </div>
+        </div>
+        <div class="meter-frame">
+          <div class="meter-track">
+            <div class="meter-fill fill-city" id="barCity" style="width: 50%;"></div>
+            <div class="meter-ghost" id="ghostCity"></div>
+          </div>
+          <div class="meter-delta-pill" id="deltaCity" aria-live="polite"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 3. CENTRAL STAGE: DILEMMA CARD (КУПЕЧЕСКИЙ ВЕКСЕЛЬ) -->
+    <main class="dilemma-stage" id="dilemmaStage">
+      <article class="merchant-bill-card" id="billCard">
+        
+        <!-- Card Framing Header / Штемпели и Категория -->
+        <div class="bill-header-row">
+          <div class="bill-stamp-box">
+            <span class="bill-doc-code" id="cardDocCode">ВЕКСЕЛЬ № 1882-01</span>
+            <span class="bill-city-stamp">С.-ПЕТЕРБУРГЪ</span>
+          </div>
+
+          <div class="bill-thematic-tags">
+            <span class="pentabasis-badge" id="cardPentabasis">
+              <span class="badge-icon">🏛️</span>
+              <span class="badge-text" id="cardPentabasisText">ПЕНТАБАЗИС: ЧЕЛОВЕК И ТРУД</span>
+            </span>
+            <span class="decree-badge" id="cardDecree">
+              <span class="badge-icon">📜</span>
+              <span class="badge-text" id="cardDecreeText">УКАЗ № 809: СОЗИДАТЕЛЬНЫЙ ТРУДЪ</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Core Content / Ситуация и Лицо -->
+        <div class="bill-body">
+          <div class="character-plate">
+            <div class="char-portrait-frame">
+              <span class="char-avatar" id="charAvatar">🧈</span>
+            </div>
+            <div class="char-info">
+              <span class="char-role" id="charRole">ГЛАВНЫЙ ФИГУРАНТЪ ДѢЛА</span>
+              <h2 class="char-name" id="charName">Поставщикъ Ашотъ & пальмовый маргаринъ</h2>
+            </div>
+          </div>
+
+          <div class="dilemma-narrative">
+            <h3 class="dilemma-title" id="dilemmaTitle">Сырьевой соблазнъ: Маргаринъ или Масло?</h3>
+            <p class="dilemma-text" id="dilemmaText">
+              Поставщик поднял цены на фермерское сливочное масло на 40%. Знакомый «темщик» шепчет: «Брат, бери технический маргарин, с ванилином под пиво никто не отличит, маржа икс-три!».
+            </p>
+          </div>
+        </div>
+
+        <!-- 2 Big Decision Buttons / Выбор пути -->
+        <div class="bill-choices-grid">
+          
+          <!-- Choice A: Темщик / Схитрить -->
+          <button class="choice-btn choice-temshik" id="btnChoiceA" data-choice="A" aria-label="Выбрать путь темщика">
+            <div class="choice-btn-top">
+              <div class="choice-path-tag">
+                <span class="key-shortcut">[1]</span>
+                <span class="path-title">ПУТЬ ТЕМЩИКА</span>
+                <span class="path-subtitle">СИЮМИНУТНАЯ ВЫГОДА</span>
+              </div>
+              <span class="choice-badge-accent">СХИТРИТЬ 🦊</span>
+            </div>
+            
+            <p class="choice-btn-quote" id="choiceAText">
+              «Закупаем маргарин! Где деньги, Лебовски?!»
+            </p>
+
+            <div class="choice-consequences-preview" id="choiceAPreview">
+              <span class="preview-item pos">💰 +20 Капитал</span>
+              <span class="preview-item neg">📜 -25 Честное Имя</span>
+              <span class="preview-item neg">🏛️ -15 Благо Города</span>
+            </div>
+          </button>
+
+          <!-- Choice B: Купец / По чести -->
+          <button class="choice-btn choice-merchant" id="btnChoiceB" data-choice="B" aria-label="Выбрать купеческое слово">
+            <div class="choice-btn-top">
+              <div class="choice-path-tag">
+                <span class="key-shortcut">[2]</span>
+                <span class="path-title">КУПЕЧЕСКОЕ СЛОВО</span>
+                <span class="path-subtitle">СОЗИДАТЕЛЬНЫЙ ПУТЬ</span>
+              </div>
+              <span class="choice-badge-accent">ПО ЧЕСТИ 👑</span>
+            </div>
+
+            <p class="choice-btn-quote" id="choiceBText">
+              «Договориться с соседями-пекарями о совместной оптовой закупке настоящего масла»
+            </p>
+
+            <div class="choice-consequences-preview" id="choiceBPreview">
+              <span class="preview-item neg">💰 -5 Капитал</span>
+              <span class="preview-item pos">📜 +15 Честное Имя</span>
+              <span class="preview-item pos">🏛️ +15 Благо Города</span>
+            </div>
+          </button>
+
+        </div>
+
+      </article>
+    </main>
+
+    <!-- 4. FOOTER / ПОДВАЛ ДЛЯ ЗАЩИТЫ -->
+    <footer class="merchant-footer" role="contentinfo">
+      <div class="footer-authors">
+        <span class="footer-seal" aria-hidden="true">⚜️</span>
+        <span class="footer-org-tag">Защита проекта по дисциплине «Основы российской государственности»</span>
+        <span class="footer-divider">•</span>
+        <span class="footer-names">Авторы: <strong>Котухов Сергей, Сиволод Дмитрий, Ветер Михаил</strong></span>
+      </div>
+      <div class="footer-hotkeys-hint">
+        <span class="hotkey-pill"><kbd>1</kbd> / <kbd>←</kbd> Схитрить</span>
+        <span class="hotkey-pill"><kbd>2</kbd> / <kbd>→</kbd> По чести</span>
+        <span class="hotkey-pill"><kbd>Пробел</kbd> Далее</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==================== MODALS & OVERLAYS ==================== -->
+
+  <!-- MODAL 1: STOCK GAZETTE DISPATCH (БИРЖЕВЫЕ ВЕДОМОСТИ / ФИДБЕК ХОДА) -->
+  <div class="modal-backdrop" id="modalFeedback" role="dialog" aria-modal="true" aria-labelledby="gazetteHead" hidden>
+    <div class="gazette-paper-card">
+      <div class="gazette-top-bar">
+        <span class="gazette-date">ВЫПУСКЪ ЭКСТРЕННЫЙ • С.-ПЕТЕРБУРГСКIЯ ВЕДОМОСТИ</span>
+        <span class="gazette-issue" id="gazetteTurnInfo">ХОДЪ 1 ИЗЪ 8</span>
+      </div>
+
+      <div class="gazette-header">
+        <div class="gazette-ornament-line"></div>
+        <h3 class="gazette-main-title" id="gazetteHead">ВЫПИСКА ИЗЪ БИРЖЕВЫХЪ ВЕДОМОСТЕЙ</h3>
+        <div class="gazette-ornament-line"></div>
+      </div>
+
+      <div class="gazette-body">
+        <div class="gazette-choice-made" id="gazetteChoiceEcho">Вы решили: «Закупаем маргарин!»</div>
+
+        <blockquote class="gazette-quote-box">
+          <div class="gazette-quote-mark" aria-hidden="true">“</div>
+          <p class="gazette-quote-text" id="gazetteFeedbackText">
+            Живот скрутило у половины студгородка. По району поползли нехорошие слухи.
+          </p>
+        </blockquote>
+
+        <div class="gazette-stats-delta-grid" id="gazetteDeltaBadges">
+          <!-- Injected via JS -->
+        </div>
+
+        <div class="gazette-doctrine-note" id="gazetteDoctrineNote">
+          <!-- Injected decree/pentabasis lesson -->
+        </div>
+      </div>
+
+      <div class="gazette-footer-actions">
+        <button class="vintage-btn btn-primary btn-large btn-block" id="btnNextTurn" autofocus>
+          <span>СЛѢДУЮЩIЙ ХОДЪ → (ПРОБЕЛ)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: BANKRUPTCY / COLLAPSE (ДОСРОЧНЫЙ ПРОИГРЫШ) -->
+  <div class="modal-backdrop modal-gameover" id="modalGameOver" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle" hidden>
+    <div class="gameover-card">
+      <div class="gameover-wax-seal" aria-hidden="true">
+        <div class="wax-circle">
+          <span>ЛАВКА ОПЕЧАТАНА</span>
+        </div>
+      </div>
+
+      <h2 class="gameover-title" id="gameOverTitle">КАССОВЫЙ РАЗРЫВЪ!</h2>
+      <div class="gameover-sub" id="gameOverSub">Крах купеческого предприятия</div>
+
+      <div class="gameover-desc-box">
+        <p class="gameover-desc" id="gameOverDesc">
+          Лебовски так и не нашёл деньги. Добрые намерения без финансовой грамотности привели к закрытию лавки.
+        </p>
+      </div>
+
+      <div class="gameover-lesson-box">
+        <span class="lesson-tag">УРОКЪ УКАЗА № 809 & ОРГ:</span>
+        <p class="lesson-text" id="gameOverLesson">
+          Устойчивость дела держится на триединстве: финансовой трезвости, незапятнанной совести и служении благу общества. Если выпадает хоть одно звено — система рушится.
+        </p>
+      </div>
+
+      <div class="gameover-stats-snapshot">
+        <div class="stat-pill">💰 Капитал: <strong id="lossCapital">0</strong></div>
+        <div class="stat-pill">📜 Имя: <strong id="lossHonor">0</strong></div>
+        <div class="stat-pill">🏛️ Город: <strong id="lossCity">0</strong></div>
+      </div>
+
+      <div class="gameover-actions">
+        <button class="vintage-btn btn-primary btn-large" id="btnRestartFromLoss">
+          <span>ПОПРОБОВАТЬ СНОВА СЪ ПЕРВОЙ ГИЛЬДИИ 🔄</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: VICTORY DIPLOMA / ЖАЛОВАННАЯ ГРАМОТА (ФИНАЛ 8 ХОДОВ) -->
+  <div class="modal-backdrop modal-diploma-backdrop" id="modalVictory" role="dialog" aria-modal="true" aria-labelledby="diplomaTitle" hidden>
+    <div class="diploma-parchment" id="diplomaPrintArea">
+      
+      <!-- Ornate Diploma Border & Header -->
+      <div class="diploma-inner-frame">
+        <div class="diploma-top-crest">
+          <div class="crest-eagle">🦅</div>
+          <div class="crest-motto">«ПРИБЫЛЬ ПРЕВЫШЕ ВСЕГО, НО ЧЕСТЬ ПРЕВЫШЕ ПРИБЫЛИ»</div>
+        </div>
+
+        <h2 class="diploma-main-title" id="diplomaTitle">ЖАЛОВАННАЯ ГРАМОТА</h2>
+        <div class="diploma-subtitle">О присвоенiи купеческаго достоинства по итогамъ 8 испытаній</div>
+
+        <!-- Rank Banner -->
+        <div class="diploma-rank-ribbon">
+          <span class="rank-prefix">ИМЕННЫМЪ УКАЗОМЪ УТВЕРЖДАЕТСЯ ВЪ ЗВАНIИ:</span>
+          <h3 class="diploma-rank-title" id="diplomaRankTitle">КУПЕЦЪ 1-Й ГИЛЬДИИ И МЕЦЕНАТЪ</h3>
+          <p class="diploma-rank-desc" id="diplomaRankDesc">
+            Высший пилотаж! Вы доказали, что традиционные духовно-нравственные ценности и созидательный честный труд — главный секрет долговечного успеха в России.
+          </p>
+        </div>
+
+        <!-- Final Scores Grid -->
+        <div class="diploma-metrics-row">
+          <div class="diploma-metric-card">
+            <span class="metric-icon">💰</span>
+            <span class="metric-val" id="finalCapitalVal">85</span>
+            <span class="metric-label">КАПИТАЛЪ</span>
+            <span class="metric-status" id="finalCapitalStatus">Крепкая казна</span>
+          </div>
+          <div class="diploma-metric-card">
+            <span class="metric-icon">📜</span>
+            <span class="metric-val" id="finalHonorVal">90</span>
+            <span class="metric-label">ЧЕСТНОЕ ИМЯ</span>
+            <span class="metric-status" id="finalHonorStatus">Крепче стали</span>
+          </div>
+          <div class="diploma-metric-card">
+            <span class="metric-icon">🏛️</span>
+            <span class="metric-val" id="finalCityVal">95</span>
+            <span class="metric-label">БЛАГО ГОРОДА</span>
+            <span class="metric-status" id="finalCityStatus">Процветание</span>
+          </div>
+        </div>
+
+        <!-- Analytical Summary for the ORG Examination Board -->
+        <div class="diploma-scientific-report">
+          <h4 class="report-header">
+            <span>🏛️ АНАЛИТИЧЕСКАЯ СВОДКА ДЛЯ ГОСУДАРСТВЕННОЙ КОМИССИИ ПО ОРГ</span>
+          </h4>
+          <p class="report-lead">
+            Отражение системной модели «Пентабазиса» и положений Указа Президента РФ № 809 в принятых бизнес-решениях:
+          </p>
+
+          <div class="pentabasis-breakdown-grid">
+            <div class="penta-box">
+              <span class="penta-tier">1. ЧЕЛОВѢКЪ</span>
+              <p class="penta-text"><strong>Нравственный выбор:</strong> Приоритет совести над минутной алчностью формирует внутреннюю опору предпринимателя.</p>
+            </div>
+            <div class="penta-box">
+              <span class="penta-tier">2. СЕМЬЯ</span>
+              <p class="penta-text"><strong>Гуманизм и династия:</strong> Поддержка сотрудников в радостях материнства и отцовства, созидание дела для потомков.</p>
+            </div>
+            <div class="penta-box">
+              <span class="penta-tier">3. ОБЩЕСТВО</span>
+              <p class="penta-text"><strong>Коллективизм:</strong> Взаимопомощь с коллегами по цеху и меценатство преображают городскую среду лучше любых слов.</p>
+            </div>
+            <div class="penta-box">
+              <span class="penta-tier">4. ГОСУДАРСТВО</span>
+              <p class="penta-text"><strong>Белый бизнес:</strong> Честная уплата податей и синергия с мерами поддержки государства создают фундамент законности.</p>
+            </div>
+            <div class="penta-box">
+              <span class="penta-tier">5. СТРАНА</span>
+              <p class="penta-text"><strong>Локальный код:</strong> Опора на отечественные рецепты и патриотизм доказывают силу культурного суверенитета.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Authors & Seals Stamp Block -->
+        <div class="diploma-signatures-row">
+          <div class="diploma-authors-stamp">
+            <span class="sign-label">Авторы проекта (студенты-исследователи):</span>
+            <span class="sign-names">Котухов Сергей • Сиволод Дмитрий • Ветер Михаил</span>
+          </div>
+          <div class="diploma-wax-seal-wrapper">
+            <div class="diploma-wax-seal">
+              <span>СОВѢТЪ<br>КУПЦОВЪ<br>1882</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons for the Exam Presentation -->
+      <div class="diploma-action-bar no-print">
+        <button class="vintage-btn btn-primary" id="btnPrintDiploma">
+          <span>🖨️ РАСПЕЧАТАТЬ ГРАМОТУ / СОХРАНИТЬ В PDF</span>
+        </button>
+        <button class="vintage-btn btn-secondary" id="btnRestartFromVictory">
+          <span>ИГРАТЬ ЗАНОВО 🔄</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL 4: AUDIENCE QR CODE MODAL (ДЛЯ ЗАЛА НА ЗАЩИТЕ) -->
+  <div class="modal-backdrop" id="modalQr" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle" hidden>
+    <div class="qr-dialog-card">
+      <button class="modal-close-btn" id="btnCloseQr" aria-label="Закрыть">✕</button>
+      
+      <div class="qr-header">
+        <span class="qr-badge">ПОДКЛЮЧЕНIЕ АУДИТОРIИ</span>
+        <h3 class="qr-title" id="qrModalTitle">СКАНИРУЙТЕ ДЛЯ ИГРЫ СО СМАРТФОНА</h3>
+        <p class="qr-sub">Наведите камеру мобильного устройства, чтобы пройти дело вместе с докладчиками!</p>
+      </div>
+
+      <div class="qr-code-display" id="qrCodeContainer">
+        <!-- SVG QR code rendered dynamically -->
+      </div>
+
+      <div class="qr-url-box">
+        <span class="qr-url-text" id="qrUrlText">https://merchant-word.vercel.app</span>
+        <button class="vintage-btn btn-small" id="btnCopyUrl">
+          <span id="copyUrlLabel">СКОПИРОВАТЬ</span>
+        </button>
+      </div>
+
+      <p class="qr-hint">Игра полностью адаптирована для мобильных экранов и сенсорного управления.</p>
+    </div>
+  </div>
+
+  <!-- MODAL 5: ABOUT / О ПРОЕКТЕ И УКАЗЕ 809 -->
+  <div class="modal-backdrop" id="modalAbout" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle" hidden>
+    <div class="about-dialog-card">
+      <button class="modal-close-btn" id="btnCloseAbout" aria-label="Закрыть">✕</button>
+
+      <div class="about-header">
+        <span class="about-pill">МЕТОДОЛОГIЯ КУРСА ОРГ</span>
+        <h3 class="about-title" id="aboutModalTitle">Основы российской государственности</h3>
+      </div>
+
+      <div class="about-content">
+        <div class="about-section">
+          <h4>🏛️ 1. Системная модель «Пентабазис»</h4>
+          <p>
+            Пентабазис объединяет пять взаимосвязанных уровней мировоззрения: <strong>Человек — Семья — Общество — Государство — Страна</strong>. Наш проект демонстрирует, что успех предпринимателя не может замыкаться на эгоистичном уровне «Человек», а прямо зависит от гармонии со всеми пятью уровнями.
+          </p>
+        </div>
+
+        <div class="about-section">
+          <h4>📜 2. Указ Президента РФ № 809 (от 09.11.2022)</h4>
+          <p>
+            Указ утверждает Основы государственной политики по сохранению и укреплению традиционных российских духовно-нравственных ценностей. В игре на практике раскрываются ключевые ценности:
+          </p>
+          <ul class="about-values-list">
+            <li><strong>Приоритет духовного над материальным</strong> — отказ от сиюминутной наживы ради доброго имени;</li>
+            <li><strong>Созидательный труд</strong> — честное производство качественного хлеба вместо спекуляций;</li>
+            <li><strong>Взаимопомощь и коллективизм</strong> — выручка соседей-предпринимателей в беде;</li>
+            <li><strong>Историческая память и преемственность</strong> — сохранение традиций семейного дела.</li>
+          </ul>
+        </div>
+
+        <div class="about-section">
+          <h4>👥 3. Авторы и разработчики</h4>
+          <p>
+            Студенты: <strong>Котухов Сергей, Сиволод Дмитрий, Ветер Михаил</strong>. Проект создан в качестве практической интерактивной разработки для публичной защиты.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-footer">
+        <button class="vintage-btn btn-primary" id="btnConfirmAbout">
+          <span>ПОНЯТНО, КЪ ДѢЛУ!</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
