@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Купеческое Слово: Построй дело на века | Игра по ОРГ</title>
   <meta name="description" content="Браузерная карточная бизнес-игра по курсу «Основы российской государственности» (Указ Президента РФ № 809 и Пентабазис). Авторы: Котухов С., Сиволод Д., Ветер М.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -32,10 +32,10 @@
         </div>
         <div class="signboard-text">
           <div class="signboard-top-strip">
-            <span class="signboard-pill">ТОbg ВАРОВАНО 1882</span>
-            <span class="signboard-divider">•</span>
+            <span class="signboard-pill">ТОВАРИЩЕСТВО 1882</span>
+            <span class="signboard-divider signboard-meta">•</span>
             <span class="signboard-meta">ГИЛЬДIЯ МАЛАГО БИЗНЕСА</span>
-            <span class="signboard-divider">•</span>
+            <span class="signboard-divider signboard-meta">•</span>
             <span class="signboard-meta">ПЕКАРНЯ «БУЛКА & ЧЕСТЬ»</span>
           </div>
           <h1 class="signboard-title">КУПЕЧЕСКОЕ СЛОВО</h1>
@@ -45,35 +45,40 @@
 
       <div class="header-controls">
         <!-- Live Action Buttons for Presenters -->
-        <button id="btnSound" class="vintage-btn icon-btn" title="Переключить звук [M]" aria-label="Переключить звук">
-          <span class="btn-icon" id="soundIcon">🔊</span>
-          <span class="btn-label-desktop">ЗВУКЪ</span>
-        </button>
+        <div class="controls-util-group">
+          <button id="btnSound" class="vintage-btn icon-btn" title="Переключить звук [M]" aria-label="Переключить звук">
+            <span class="btn-icon" id="soundIcon">🔊</span>
+            <span class="btn-label-desktop">ЗВУКЪ</span>
+          </button>
 
-        <button id="btnFullscreen" class="vintage-btn icon-btn" title="Полноэкранный режим [F]" aria-label="Во весь экран">
-          <span class="btn-icon">⛶</span>
-          <span class="btn-label-desktop">ЭКРАНЪ</span>
-        </button>
+          <button id="btnFullscreen" class="vintage-btn icon-btn btn-desktop-only" title="Полноэкранный режим [F]" aria-label="Во весь экран">
+            <span class="btn-icon">⛶</span>
+            <span class="btn-label-desktop">ЭКРАНЪ</span>
+          </button>
 
-        <button id="btnQr" class="vintage-btn icon-btn" title="Показать QR-код для аудитории [Q]" aria-label="QR-код для зала">
-          <span class="btn-icon">📱</span>
-          <span class="btn-label-desktop">QR ДЛЯ ЗАЛА</span>
-        </button>
+          <button id="btnQr" class="vintage-btn icon-btn" title="Показать QR-код для аудитории [Q]" aria-label="QR-код для зала">
+            <span class="btn-icon">📱</span>
+            <span class="btn-label-desktop">QR ДЛЯ ЗАЛА</span>
+          </button>
 
-        <button id="btnAbout" class="vintage-btn icon-btn" title="Справка по ОРГ и Указу № 809" aria-label="Справка по проекту">
-          <span class="btn-icon">📖</span>
-          <span class="btn-label-desktop">О ПРОЕКТЕ</span>
-        </button>
-
-        <!-- Turn Badge -->
-        <div class="turn-badge" id="turnBadge">
-          <span class="turn-label">ДѢЛО</span>
-          <span class="turn-value" id="turnValue">ХОДЪ 1 / 8</span>
+          <button id="btnAbout" class="vintage-btn icon-btn" title="Справка по ОРГ и Указу № 809" aria-label="Справка по проекту">
+            <span class="btn-icon">📖</span>
+            <span class="btn-label-desktop">О ПРОЕКТЕ</span>
+          </button>
         </div>
 
-        <button id="btnRestart" class="vintage-btn btn-secondary" title="Начать заново [R]">
-          <span>ЗАНОВО</span>
-        </button>
+        <div class="controls-turn-group">
+          <!-- Turn Badge -->
+          <div class="turn-badge" id="turnBadge">
+            <span class="turn-label">ДѢЛО</span>
+            <span class="turn-value" id="turnValue">ХОДЪ 1 / 8</span>
+          </div>
+
+          <button id="btnRestart" class="vintage-btn btn-secondary" title="Начать заново [R]">
+            <span class="btn-icon">🔄</span>
+            <span class="btn-label-text">ЗАНОВО</span>
+          </button>
+        </div>
       </div>
     </header>
 
