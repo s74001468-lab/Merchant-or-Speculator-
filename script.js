@@ -459,6 +459,7 @@
         // Header controls
         btnSound: document.getElementById('btnSound'),
         soundIcon: document.getElementById('soundIcon'),
+        btnFullscreen: document.getElementById('btnFullscreen'),
         btnQr: document.getElementById('btnQr'),
         btnAbout: document.getElementById('btnAbout'),
         btnRestart: document.getElementById('btnRestart'),
@@ -572,6 +573,11 @@
         if (enabled) this.sound.playCoin();
       });
 
+      // Fullscreen Toggle
+      if (this.dom.btnFullscreen) {
+        this.dom.btnFullscreen.addEventListener('click', () => this.toggleFullscreen());
+      }
+
       // QR Modal
       this.dom.btnQr.addEventListener('click', () => this.openQrModal());
       this.dom.btnCloseQr.addEventListener('click', () => this.hideModal(this.dom.modalQr));
@@ -620,6 +626,9 @@
       } else if (e.key === '2' || e.key === 'ArrowRight') {
         e.preventDefault();
         this.makeChoice('B');
+      } else if (e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') {
+        e.preventDefault();
+        this.toggleFullscreen();
       } else if (e.key === 'q' || e.key === 'Q' || e.key === 'й' || e.key === 'Й') {
         e.preventDefault();
         this.openQrModal();
@@ -631,6 +640,14 @@
       } else if (e.key === 'r' || e.key === 'R' || e.key === 'к' || e.key === 'К') {
         e.preventDefault();
         this.startNewGame();
+      }
+    }
+
+    toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.warn(err));
+      } else {
+        document.exitFullscreen().catch(err => console.warn(err));
       }
     }
 
