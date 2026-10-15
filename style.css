@@ -670,14 +670,76 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* Биржевая сводка тура */
+.market-news-ticker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--gold-light);
+  border: var(--border-thin);
+  border-left: 4px solid var(--gold-dark);
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.ticker-badge {
+  font-family: var(--font-serif-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--cinnabar);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ticker-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-black);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.char-action-corner {
+  margin-left: auto;
+}
+
+.btn-dice {
+  background-color: var(--gold-ochre);
+  color: #FFF;
+  border: var(--border-thick);
+  padding: 5px 10px;
+  box-shadow: var(--shadow-hard-sm);
+  font-size: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.15s ease;
+  white-space: nowrap;
+}
+.btn-dice:hover:not(:disabled) {
+  background-color: var(--gold-dark);
+  transform: scale(1.03);
+}
+.btn-dice:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.8);
+}
+
 /* ==========================================================================
-   КНОПКИ ВЫБОРА: ДВА ПУТИ (ТЕМЩИК VS КУПЕЦ)
+   КНОПКИ ВЫБОРА: ТРИ ПУТИ (ТЕМЩИК VS ИДЕАЛИСТ VS КУПЕЦ)
    ========================================================================== */
 
 .bill-choices-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
   position: relative;
   z-index: 2;
   margin-top: 4px;
@@ -687,12 +749,12 @@ body {
   background-color: var(--bg-card);
   border: var(--border-thick);
   box-shadow: var(--shadow-hard);
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: 2px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   text-align: left;
   transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.12s ease;
@@ -710,7 +772,7 @@ body {
   box-shadow: var(--shadow-pressed);
 }
 
-/* Левая кнопка: Путь Темщика */
+/* 1. Левая кнопка: Путь Темщика */
 .choice-temshik {
   border-left: 6px solid var(--cinnabar);
 }
@@ -718,7 +780,20 @@ body {
   background-color: #FFF9F8;
 }
 
-/* Правая кнопка: Купеческое слово */
+/* 2. Средняя кнопка: Наивный идеалист (слив казны) */
+.choice-idealist {
+  border-left: 6px solid #486581;
+}
+.choice-idealist:hover {
+  background-color: #F0F4F8;
+}
+.choice-idealist .tag-idealist {
+  background-color: #E2E8F0;
+  color: #334E68;
+  border-color: #627D98;
+}
+
+/* 3. Правая кнопка: Купеческая хватка */
 .choice-merchant {
   border-left: 6px solid var(--emerald);
 }
@@ -1673,6 +1748,105 @@ kbd {
 
 .about-values-list li {
   margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   МОДАЛКА: КУПЕЧЕСКИЙ ЖРЕБИЙ (ИСПЫТАНИЕ УДАЧИ)
+   ========================================================================== */
+
+.dice-dialog-card {
+  width: 100%;
+  max-width: 480px;
+  background-color: var(--bg-card);
+  border: 4px double var(--ink-black);
+  box-shadow: var(--shadow-hard-lg);
+  padding: 24px;
+  border-radius: 2px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dice-top-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dice-crest {
+  font-size: 26px;
+}
+
+.dice-sub {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+}
+
+.dice-title {
+  font-family: var(--font-serif-display);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--cinnabar);
+  text-transform: uppercase;
+}
+
+.dice-cube-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+}
+
+.dice-cube {
+  font-size: 64px;
+  line-height: 1;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dice-cube.rolling {
+  animation: rollDice 0.6s infinite linear;
+}
+
+@keyframes rollDice {
+  0% { transform: rotate(0deg) scale(0.9); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(0.9); }
+}
+
+.dice-result-box {
+  background-color: var(--bg-page-tint);
+  border: var(--border-thin);
+  padding: 12px;
+  border-radius: 2px;
+}
+
+.dice-result-heading {
+  font-family: var(--font-serif-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-black);
+  margin-bottom: 4px;
+}
+
+.dice-result-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-secondary);
+}
+
+.dice-delta-badge {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
 }
 
 /* ==========================================================================

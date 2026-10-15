@@ -8,7 +8,7 @@
   'use strict';
 
   // ==========================================================================
-  // 1. БАЗА ДАННЫХ: 8 КАРТОЧЕК-ДИЛЕММ
+  // 1. БАЗА ДАННЫХ: 8 КАРТОЧЕК-ДИЛЕММ С 3-МЯ СТРАТЕГИЯМИ
   // ==========================================================================
   const SCENARIOS = [
     {
@@ -20,19 +20,32 @@
       avatar: "🧈",
       charRole: "ПОСТАВЩИКЪ СЫРЬЯ",
       charName: "Поставщикъ Ашотъ & пальмовый маргаринъ",
-      title: "Сырьевой соблазнъ: Маргаринъ или Масло?",
-      narrative: "Поставщик поднял цены на фермерское сливочное масло на 40%. Знакомый «темщик» шепчет: «Брат, бери технический маргарин, с ванилином под пиво никто не отличит, маржа икс-три!».",
+      title: "Сырьевой соблазнъ: Маргаринъ, Альпы или Кооперативъ?",
+      narrative: "Поставщик поднял цены на фермерское сливочное масло на 40% из-за ранней распутицы. Знакомый «темщик» шепчет: «Бери технический маргарин, с ванилином никто не отличит, маржа икс-три!». Приказчик требует выписать альпийское масло за тройную цену.",
+      marketNews: "БИРЖА: Цены на вологодское масло подскочили на 40% из-за ранней распутицы!",
       choiceA: {
-        text: "«Закупаем маргарин! Где деньги, Лебовски?!»",
-        deltas: { capital: 20, honor: -25, city: -15 },
-        feedback: "Живот скрутило у половины студгородка. По району поползли нехорошие слухи.",
-        doctrineNote: "Указ № 809: Фальсификация ради минутной наживы разрушает доверие и губит репутацию."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Закупаем технический маргарин! Где деньги, Лебовски?!»",
+        deltas: { capital: 25, honor: -25, city: -15 },
+        feedback: "Живот скрутило у половины студгородка. По району поползли нехорошие слухи, полицмейстер принюхивается к выпечке.",
+        doctrineNote: "Указ № 809: Фальсификация ради минутной наживы разрушает доверие и губит купеческую репутацию."
       },
       choiceB: {
-        text: "«Договориться с соседями-пекарями о совместной оптовой закупке настоящего масла»",
-        deltas: { capital: -5, honor: 15, city: 15 },
-        feedback: "Как говорил Стэтхэм: «Лучше меньше маржи в кармане, чем маргарин на совести». Клиенты в восторге!",
-        doctrineNote: "Указ № 809: Созидательный честный труд и партнерство — залог устойчивого долголетия дела."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Купить альпийское масло по тройной цене за счет всего остатка кассы»",
+        deltas: { capital: -30, honor: 20, city: 10 },
+        feedback: "Масло божественное, но в кассе свистит ветер. Если так сорить золотом — лавка закроется до конца недели!",
+        doctrineNote: "Указ № 809 & ОРГ: Слепая расточительность без трезвого расчета неизбежно ведет к кассовому разрыву."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Создать артель с пекарями и выбить оптовую скидку 30% напрямую с вологодского завода»",
+        deltas: { capital: 10, honor: 15, city: 15 },
+        feedback: "Купеческая смекалка в действии! Объединив объемы с соседями, вы снизили цену на треть и получили свежайшее натуральное масло.",
+        doctrineNote: "Указ № 809: Созидательный честный труд, кооперация и соборность побеждают любые кризисы."
       }
     },
     {
@@ -44,19 +57,32 @@
       avatar: "🥖",
       charRole: "МАСТЕРЪ-ПЕКАРЬ",
       charName: "Старшій пекарь Данила & новорожденный сынъ",
-      title: "Кадровый вопросъ: Роддомъ или Часъ Пикъ?",
-      narrative: "Твой лучший пекарь просит отпустить его пораньше и выдать аванс — у него родился ребенок, нужно встретить жену из роддома. Но сегодня пятница и час пик!",
+      title: "Кадровый вопросъ: Роддомъ, Пиръ или Семейная смѣна?",
+      narrative: "У твоего лучшего мастера-пекаря Данилы родился первенец-богатырь! Он просит отпустить его встретить жену из роддома и выдать аванс. Но сегодня вечер пятницы, у прилавка толпа голодных горожан!",
+      marketNews: "МОСКВА: Пятничный ажиотаж в торговых рядах, спрос на свежие сайки утроен!",
       choiceA: {
-        text: "«Бизнес есть бизнес! Выйдет на смену как миленький, иначе штраф»",
-        deltas: { capital: 15, honor: -20, city: -15 },
-        feedback: "Пекарь выгорел и ищет новую работу, а бариста смотрит на тебя как на людоеда.",
-        doctrineNote: "Указ № 809: Отношение к сотрудникам как к винтикам разрушает мотивацию и сеет вражду."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Бизнес есть бизнес! Никаких отгулов, работать в две смены под угрозой штрафа»",
+        deltas: { capital: 20, honor: -25, city: -15 },
+        feedback: "Выпечка распродана, но Данила со слезами подал расчет. Коллектив озлобился, бариста смотрит волком.",
+        doctrineNote: "Указ № 809: Отношение к человеку как к бездушному винтику уничтожает команду и преданность делу."
       },
       choiceB: {
-        text: "«Выписать премию на коляску, подарить корзину выпечки и самому встать за кассу на вечер!»",
-        deltas: { capital: -10, honor: 20, city: 20 },
-        feedback: "Пекарь готов работать с тобой всю жизнь, а история про доброго шефа разлетелась по местным пабликам!",
-        doctrineNote: "Указ № 809: Крепкая семья, милосердие и уважение к отцовству создают преданный коллектив."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Закрыть лавку на весь вечер, выдать годовой оклад и устроить пир на весь район за счет кассы!»",
+        deltas: { capital: -30, honor: 25, city: 15 },
+        feedback: "Район погулял на славу, но касса пуста. Арендодатель уже стучит в дверь, требуя золотых за аренду!",
+        doctrineNote: "Указ № 809 & ОРГ: Щедрость должна опираться на экономическую устойчивость, а не на самоликвидацию бизнеса."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Отпустить мастера с премией на колыбель, а самому встать к печи вместе со старшим сыном»",
+        deltas: { capital: 5, honor: 20, city: 20 },
+        feedback: "Покупатели поражены: сам хозяин в фартуке у печи! Семья пекаря предана на всю жизнь, а лавка получила статус образцовой.",
+        doctrineNote: "Указ № 809: Личный пример, почитание отцовства и семейный дух создают нерушимый коллектив."
       }
     },
     {
@@ -68,19 +94,32 @@
       avatar: "📑",
       charRole: "БУХГАЛТЕРЪ-СХЕМЩИКЪ",
       charName: "Бухгалтеръ-схемщикъ Аркадій & серая касса",
-      title: "Налоги и конверты: Серая схемка или Грантъ?",
-      narrative: "Знакомый бухгалтер предлагает «мутную схемку»: дробить ИП, не бить чеки после 18:00 и платить зарплату в конвертах. Экономия — 150 тысяч в месяц!",
+      title: "Налоги и конверты: Тайный ларь, Переплата или Грантъ?",
+      narrative: "Ушлый бухгалтер Аркадий предлагает спрятать треть выручки в потайной ларь и платить приказчикам в конвертах. Молодой стряпчий, напротив, советует отдать в казну всё до копейки.",
+      marketNews: "НИЖНИЙ: Казенная палата ужесточает надзор за сбором гильдейских податей!",
       choiceA: {
-        text: "«Работаем в серую! Налоги — для слабаков»",
-        deltas: { capital: 25, honor: -20, city: -25 },
-        feedback: "В кассе густо, но при каждом звонке с незнакомого номера у тебя дергается глаз.",
-        doctrineNote: "Указ № 809: Теневая экономика крадет будущее у города, лишая детей школ и больниц."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Прятать выручку в чулок! Налоги платят только простофили»",
+        deltas: { capital: 25, honor: -25, city: -20 },
+        feedback: "Золото в кармане звенит, но при каждом звоне судейского колокольчика у тебя холодеет в животе.",
+        doctrineNote: "Указ № 809: Теневые махинации крадут будущее у города, лишая детей школ и больниц."
       },
       choiceB: {
-        text: "«Платим в белую и подаем заявку на региональный грант для молодых предпринимателей»",
-        deltas: { capital: 10, honor: 15, city: 20 },
-        feedback: "Государство одобрило грант в 500 000 ₽ на новую подовую печь! Спать с чистой совестью — бесценно.",
-        doctrineNote: "Указ № 809: Законность и честность открывают доступ к институтам развития государства."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Заплатить налоги вперед на три года и пожертвовать казну на парады!»",
+        deltas: { capital: -30, honor: 20, city: 15 },
+        feedback: "Чиновники рассыпались в похвалах, но оборотных средств на закупку муки не осталось совсем.",
+        doctrineNote: "Указ № 809 & ОРГ: Финансовая дисциплина требует баланса: налоги платятся по закону, а не из тщеславия."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Вести прозрачные книги и подать проект на земский грант для ремесленных производств»",
+        deltas: { capital: 15, honor: 15, city: 20 },
+        feedback: "Земство выделило безвозвратную ссуду на новую подовую печь! Белый учет открыл доступ к казенному содействию.",
+        doctrineNote: "Указ № 809: Законность и честное партнерство с институтами развития государства дают устойчивую прибыль."
       }
     },
     {
@@ -92,19 +131,32 @@
       avatar: "☕",
       charRole: "СОСѢДНИЙ КУПЕЦЪ",
       charName: "Семейная кофейня купцовъ Соколовыхъ",
-      title: "Кризисъ у соседа: Добивать или Выручать?",
-      narrative: "У соседней семейной кофейни прорвало трубу и сгорела кофемашина прямо перед выходными. Ты можешь переманить всех их клиентов грязной рекламой или одолжить им свою запасную рожковую машину.",
+      title: "Кризисъ у соседа: Добивать, Раздавать или Выручать?",
+      narrative: "У соседней семейной кофейни прорвало трубу и залило печи перед праздниками. Перекуп советует переманить их гостей клеветой, а сердобольный приказчик — бесплатно кормить их за наш счет.",
+      marketNews: "ЯРОСЛАВЛЬ: Авария на Волжском водопроводе парализовала торговлю в нижнем посаде!",
       choiceA: {
-        text: "«Запустить таргет: „Соседи закрылись — идите к нам!“ Добивай конкурента!»",
-        deltas: { capital: 20, honor: -25, city: -10 },
-        feedback: "В предпринимательском чате города тебя окрестили «крысой 1-й гильдии».",
-        doctrineNote: "Указ № 809: Агрессивный эгоизм и каннибализм отравляют дух солидарности в обществе."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Запустить крикунов: „Соседи протухли — идите к нам!“ Добивай конкурента!»",
+        deltas: { capital: 25, honor: -30, city: -15 },
+        feedback: "В гильдейском собрании тебе публично отказали в подаче руки. В спину шепчут: «Крыса первой гильдии».",
+        doctrineNote: "Указ № 809: Людоедский социальный дарвинизм разрушает дух солидарности и общественное доверие."
       },
       choiceB: {
-        text: "«Одолжить аппарат и запустить совместную акцию „Выручаем соседей“»",
-        deltas: { capital: 5, honor: 20, city: 20 },
-        feedback: "Купеческое братство в деле! Соседи в знак благодарности поделились контактами лучших поставщиков кофе.",
-        doctrineNote: "Указ № 809: Коллективизм и соборность веками делали русское купечество непобедимым."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Взять на себя все долги соседей и бесплатно раздавать их выпечку себе в убыток»",
+        deltas: { capital: -30, honor: 20, city: 15 },
+        feedback: "Святая простота! Твоя доброта похвальна, но твой собственный кассовый баланс ушел в глубокий минус.",
+        doctrineNote: "Указ № 809 & ОРГ: Помощь ближнему должна быть разумной; утопающий не спасет другого, если потонет сам."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Одолжить запасную печь, пустить их мастеров в ночную смену и сделать совместный праздничный каравай»",
+        deltas: { capital: 10, honor: 20, city: 20 },
+        feedback: "Настоящее купеческое братство! Соседи спасены, прибыль поделена по совести, город восхищен солидарностью.",
+        doctrineNote: "Указ № 809: Коллективизм, соборность и взаимопомощь веками делали русское купечество непобедимым."
       }
     },
     {
@@ -114,21 +166,34 @@
       pentabasis: "ДУХОВНОСТЬ И КУЛЬТУРА",
       decree: "ПРИОРИТЕТ ДУХОВНОГО НАД МАТЕРИАЛЬНЫМ",
       avatar: "🎪",
-      charRole: "ТРЕШЪ-БЛОГЕРЪ",
+      charRole: "ТРЕШЪ-СКОМОРОХЪ",
       charName: "Трешъ-скоморохъ Владъ & срамный хайпъ",
-      title: "Реклама и блогеры: Трешъ-хайпъ или Семьи?",
-      narrative: "Скандальный треш-блогер предлагает прорекламировать твою пекарню через пошлый пранк прямо в торговом зале. Охваты будут бешеные!",
+      title: "Реклама лавки: Срамной фарсъ, Тишина или Семейный праздникъ?",
+      narrative: "Скандальный скоморох предлагает устроить пошлый пранк прямо в лавке ради дикого хайпа. Либо вовсе закрыть ставни от греха? Либо организовать праздник пряничной росписи для детей?",
+      marketNews: "КАЗАНЬ: Городская управа ввела штрафы за непотребный балаганный шум на ярмарках!",
       choiceA: {
-        text: "«Хайп не пахнет! Снимаем треш-рилс!»",
-        deltas: { capital: 15, honor: -30, city: -15 },
-        feedback: "Школьники посмеялись, но постоянные семейные покупатели обходят твою вывеску стороной.",
-        doctrineNote: "Указ № 809: Распространение деструктивного контента уничтожает культурный авторитет дела."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Хайп не пахнет! Запускаем срамных скоморохов и бьем в медные тазы!»",
+        deltas: { capital: 20, honor: -35, city: -20 },
+        feedback: "Зеваки поглазели, но порядочные семейные покупатели обходят лавку за три версты. Гимназистам запретили вход.",
+        doctrineNote: "Указ № 809: Попустительство низменным инстинктам и деструктивному хайпу уничтожает культурный авторитет дела."
       },
       choiceB: {
-        text: "«Отказать треш-блогеру и устроить бесплатный воскресный мастер-класс по выпечке для детей с родителями»",
-        deltas: { capital: 10, honor: 20, city: 15 },
-        feedback: "Полный зал счастливых семей! Родители скупают круассаны и калачи коробками.",
-        doctrineNote: "Указ № 809: Просвещение, семейный досуг и созидательная культура рождают преданность на года."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Запереть ставни, снять вывеску и не тратить ни копейки на оповещение людей»",
+        deltas: { capital: -25, honor: 10, city: -5 },
+        feedback: "Греха нет, но и лавку никто не видит. Свежий хлеб черствеет, приказчики скучают без покупателей.",
+        doctrineNote: "Указ № 809 & ОРГ: Скромность украшает, но купец обязан возвещать о добрых плодах своих трудов."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Устроить семейный фестиваль казанского чак-чака с бесплатным мастер-классом для сирот и родителей»",
+        deltas: { capital: 10, honor: 20, city: 25 },
+        feedback: "Очередь выстроилась до Кремля! Газеты вышли с хвалебными статьями, а семьи стали постоянными гостями лавки.",
+        doctrineNote: "Указ № 809: Просвещение, семейный досуг и созидательная культура рождают преданность на долгие годы."
       }
     },
     {
@@ -138,21 +203,34 @@
       pentabasis: "СТРАНА И ИДЕНТИЧНОСТЬ",
       decree: "ПАТРИОТИЗМ И ЕДИНСТВО НАРОДОВ",
       avatar: "🍩",
-      charRole: "ИНОЗЕМНЫЙ АГЕНТЪ ФРАНШИЗЫ",
+      charRole: "ИНОЗЕМНЫЙ АГЕНТЪ",
       charName: "Иноземный конгломератъ «Lucky Donut VIP»",
-      title: "Импортозамещение: Чужой франчайзингъ или Свой калачъ?",
-      narrative: "Иностранная франшиза предлагает тебе сменить вывеску на шаблонный английский бренд и продавать замороженные импортные донаты. Или создать свое меню по старинным кубанским и русским рецептам из местных продуктов?",
+      title: "Ассортиментъ: Чужой франчайзингъ, Сухари или Уральскiй Калачъ?",
+      narrative: "Иноземный негоциант предлагает сменить вывеску на заморскую «Lucky Donut» и продавать мороженые пончики с химией. Либо сушить пресные сухари? Либо разработать аутентичный сибирский калач?",
+      marketNews: "УРАЛ: Ярмарочный комитет констатирует взрывной спрос на самобытные сибирские ремесла!",
       choiceA: {
-        text: "«Вешаем вывеску „Lucky Donut VIP“ и размораживаем химозные пончики»",
-        deltas: { capital: 10, honor: -15, city: -20 },
-        feedback: "Очередной безликий ларёк с синтетическим тестом, закрывшийся через три месяца.",
-        doctrineNote: "Указ № 809: Забвение национального культурного кода превращает бизнес в пустую декорацию."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Вешаем вывеску „Lucky Donut VIP“ и заваливаем лавку импортной химией»",
+        deltas: { capital: 20, honor: -25, city: -20 },
+        feedback: "Купили пару раз ради яркой этикетки, но вкус оказался бумажным. Вывеска выцвела, уважение земляков потеряно.",
+        doctrineNote: "Указ № 809: Забвение национального культурного кода и раболепие перед чужим превращают дело в пустую декорацию."
       },
       choiceB: {
-        text: "«Запускаем линейку „Сделано в России“: калачи по купеческим рецептам, сбитень и локальные ягоды»",
-        deltas: { capital: 20, honor: 15, city: 20 },
-        feedback: "Туристы и горожане выстраиваются в очередь за настоящим аутентичным вкусом русской выпечки!",
-        doctrineNote: "Указ № 809: Опора на традиции и отечественные богатства — неиссякаемый источник силы."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Печь исключительно твердые пресные сухари по рецепту XII века без сахара и соли!»",
+        deltas: { capital: -25, honor: 15, city: 5 },
+        feedback: "Аутентично до зубовного скрежета, но горожане не могут разгрызть ваши изделия. Склад забит неликвидом.",
+        doctrineNote: "Указ № 809 & ОРГ: Традиция — это передача живого огня, а не поклонение окаменевшему пеплу."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Запустить линейку „Уральскiй Калачъ“: таежная брусника, кедровый орех и фирменная берестяная коробка»",
+        deltas: { capital: 15, honor: 15, city: 20 },
+        feedback: "Триумф! Гости Екатеринбурга увозят коробки с калачами как главный сувенир города, губернатор вручил знак качества!",
+        doctrineNote: "Указ № 809: Опора на родные богатства, традицию и самобытный стиль рождает национальных лидеров."
       }
     },
     {
@@ -164,19 +242,32 @@
       avatar: "🏮",
       charRole: "МѢЩАНСКIЙ СТАРОСТА",
       charName: "Мещанскій комитетъ & темный дворъ",
-      title: "Городская среда: Моя хата съ краю или Скверъ?",
-      narrative: "Во дворе рядом с твоей пекарней разбитая детская площадка и темно по вечерам. Местные жители собирают средства на ремонт и освещение.",
+      title: "Городская среда: Глухой заборъ, Золотой фонтанъ или Скверъ?",
+      narrative: "Во дворе рядом с твоей лавкой — заросший пустырь, где по ночам шалят лихие люди. Темщик советует огородиться колючей проволокой. Идеалист требует отдать всю прибыль в городскую кассу. Купец видит здесь место для сквера!",
+      marketNews: "САМАРА: Мещанская управа учредила льготную аренду купцам, облагораживающим набережные!",
       choiceA: {
-        text: "«Моя хата с краю, я вам не ЖКХ!»",
-        deltas: { capital: 5, honor: -15, city: -25 },
-        feedback: "Вечером мимо тёмного двора к тебе просто боятся ходить покупатели. Выручка лавки стремительно падает.",
-        doctrineNote: "Указ № 809: Равнодушие к среде обитания бумерангом бьёт по благополучию предпринимателя."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Поставить глухой трехметровый забор: моя хата с краю, я вам не ЖКХ!»",
+        deltas: { capital: 15, honor: -20, city: -30 },
+        feedback: "Клиенты боятся ходить мимо мрачного темного двора. Вечером улица вымирает, выручка лавки стремительно падает.",
+        doctrineNote: "Указ № 809: Равнодушие к среде обитания бумерангом бьет по безопасности и благополучию предпринимателя."
       },
       choiceB: {
-        text: "«По традициям Третьякова и Морозова: оплатить фонари, поставить лавочки и сделать уютную веранду»",
-        deltas: { capital: -10, honor: 25, city: 25 },
-        feedback: "Весь район теперь гуляет в благоустроенном сквере, а вечерняя выручка пекарни выросла вдвое!",
-        doctrineNote: "Указ № 809: Традиция русского меценатства: преображая город вокруг, купец возвышает и своё дело."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Спустить всю казну лавки на мраморные фонтаны и позолоту на пустыре!»",
+        deltas: { capital: -30, honor: 25, city: 25 },
+        feedback: "Красота неописуемая, но поставщики муки выставили неустойку. Денег на расчетном счете — круглый ноль!",
+        doctrineNote: "Указ № 809 & ОРГ: Меценатство должно быть соизмеримо с силами; разорившийся меценат больше никого не одарит."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Поставить фонари, обустроить лавочки с газонами и открыть уютную чайную веранду»",
+        deltas: { capital: 10, honor: 20, city: 25 },
+        feedback: "Весь район теперь гуляет в благоустроенном сквере! Аромат выпечки манит гостей, а выручка лавки выросла на треть.",
+        doctrineNote: "Указ № 809: Традиция русского меценатства: преображая город вокруг, купец возвышает и свое дело."
       }
     },
     {
@@ -188,20 +279,79 @@
       avatar: "🏪",
       charRole: "СЕТЕВОЙ МОНОПОЛИСТЪ",
       charName: "Сетевой перекупъ «Вейпъ-Алко-Торгъ»",
-      title: "Будущее дѣла: Продать подъ алкомаркетъ или Торговый Домъ?",
-      narrative: "Крупный сетевой перекуп предлагает выкупить твой бизнес, чтобы закрыть пекарню и открыть на этом месте алкомаркет и вейп-шоп. Деньги предлагает хорошие, сразу на руки.",
+      title: "Будущее дѣла: Продать подъ кабакъ, Раздать или Торговый Домъ?",
+      narrative: "Крупный синдикат предлагает выкупить твой бизнес за большие наличные, чтобы снести пекарню и открыть злачный кабак. Это твой финальный выбор, определяющий судьбу твоего имени в веках!",
+      marketNews: "ДОН: Столичные дельцы агрессивно скупают торговые места в купеческом центре!",
       choiceA: {
-        text: "«Продаем под алкомаркет и улетаем чиллить!»",
-        deltas: { capital: 30, honor: -40, city: -35 },
-        feedback: "Деньги быстро разлетелись, а на месте любимой пекарни теперь шумят и дебоширят под окнами.",
-        doctrineNote: "Указ № 809: Продажа дела под спаивание людей — предательство созидания ради лёгких денег."
+        title: "УШЛЫЙ ТЕМЩИКЪ",
+        badge: "СХЕМА 🦊",
+        text: "«Продать всё под кабак и улететь кутить в Ниццу!»",
+        deltas: { capital: 35, honor: -45, city: -35 },
+        feedback: "В кармане ассигнации, но земляки проклинают твою фамилию. Вместо хлебного духа — пьяные драки под окнами бывших друзей.",
+        doctrineNote: "Указ № 809: Продажа плодов созидательного труда ради пошлой праздности — духовная смерть предпринимателя."
       },
       choiceB: {
-        text: "«Отказать! Расширить дело с семьей и основать „Торговый Домъ“, который не стыдно передать детям»",
-        deltas: { capital: 20, honor: 25, city: 25 },
-        feedback: "Твоя фамилия на купеческой вывеске стала символом высшего знака качества в городе!",
-        doctrineNote: "Указ № 809: Преемственность поколений и созидание династии — венец купеческого служения."
+        title: "НАИВНЫЙ ИДЕАЛИСТЪ",
+        badge: "СВЯТОША 🕊️",
+        text: "«Завещать лавку дальним проходимцам и раздать всё зерно первому встречному»",
+        deltas: { capital: -30, honor: 15, city: -10 },
+        feedback: "Зерно растащили спекулянты и перепродали втрое дороже на черном рынке. Дело предков прекратило существование.",
+        doctrineNote: "Указ № 809 & ОРГ: Бездумная растрата наследия без заботы о династии и преемственности губит вековой труд."
+      },
+      choiceC: {
+        title: "КУПЕЧЕСКАЯ ХВАТКА",
+        badge: "РАСЧЕТЪ 👑",
+        text: "«Отказать перекупам! Передать дело детям, учредить стипендию для юных пекарей и заложить фабрику»",
+        deltas: { capital: 25, honor: 25, city: 25 },
+        feedback: "Торговый Домъ с твоим купеческим гербом вошел в историю! Фамилия стала символом надежности и созидания державы!",
+        doctrineNote: "Указ № 809: Преемственность поколений, верность купеческому слову и служение Отечеству строят дело на века!"
       }
+    }
+  ];
+
+  // Варианты купеческого жребия (Кубик 1-6)
+  const DICE_EVENTS = [
+    {
+      roll: 1,
+      icon: "⚀",
+      name: "Набег ревизоров из Казенной Палаты",
+      desc: "Придирчивый чиновник нашел пылинку на весовых гирях и выписал крупный штраф.",
+      deltas: { capital: -15, honor: 0, city: 0 }
+    },
+    {
+      roll: 2,
+      icon: "⚁",
+      name: "Злые сплетни на торгу",
+      desc: "Конкуренты пустили слух, будто в вашей муке завелся долгоносик. Покупатели колеблются.",
+      deltas: { capital: 0, honor: -15, city: 0 }
+    },
+    {
+      roll: 3,
+      icon: "⚂",
+      name: "Ничья на Нижегородской ярмарке",
+      desc: "Сделка сошлась в ноль, но вам удалось выгодно сбыть остатки вчерашней сдобы.",
+      deltas: { capital: 5, honor: 5, city: 0 }
+    },
+    {
+      roll: 4,
+      icon: "⚃",
+      name: "Выгодная партия крымского сахара",
+      desc: "Удалось перехватить обоз с тростниковым сахаром со скидкой 40% прямо с баржи!",
+      deltas: { capital: 15, honor: 0, city: 10 }
+    },
+    {
+      roll: 5,
+      icon: "⚄",
+      name: "Похвала Архиерея и Городской Думы",
+      desc: "Ваш калач освятили на городском празднике, прихожане повалили за благословенным хлебом!",
+      deltas: { capital: 10, honor: 20, city: 15 }
+    },
+    {
+      roll: 6,
+      icon: "⚅",
+      name: "КУПЕЧЕСКИЙ КУШ! Казенный заказ флота!",
+      desc: "Подписан прямой контракт на снабжение сухарями Балтийского флота Его Величества!",
+      deltas: { capital: 25, honor: 15, city: 15 }
     }
   ];
 
@@ -280,6 +430,30 @@
       osc.stop(now + 0.2);
     }
 
+    // Грохот броска костей на ярмарке
+    playDiceRoll() {
+      if (!this.enabled) return;
+      this.initContext();
+      if (!this.ctx) return;
+
+      const now = this.ctx.currentTime;
+      for (let i = 0; i < 6; i++) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(200 + Math.random() * 300, now + i * 0.07);
+
+        gain.gain.setValueAtTime(0.08, now + i * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.05);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now + i * 0.07);
+        osc.stop(now + i * 0.07 + 0.06);
+      }
+    }
+
     // Фанфары победы (Грамота)
     playVictory() {
       if (!this.enabled) return;
@@ -332,11 +506,7 @@
   }
 
   // ==========================================================================
-  // 3. QR-КОД ГЕНЕРАТОР: ИСПОЛЬЗУЕТСЯ СТАНДАРТНЫЙ QRCODE.MIN.JS
-  // ==========================================================================
-
-  // ==========================================================================
-  // 4. ДВИЖОК ИГРЫ: СОСТОЯНИЕ И ЛОГИКА
+  // 3. ДВИЖОК ИГРЫ: СОСТОЯНИЕ И ЛОГИКА
   // ==========================================================================
   class MerchantGame {
     constructor() {
@@ -348,6 +518,7 @@
       this.history = [];
       this.gameOver = false;
       this.inModal = false;
+      this.diceUsed = false;
 
       // DOM Elements Cache
       this.dom = {
@@ -374,18 +545,27 @@
         cardPentabasisText: document.getElementById('cardPentabasisText'),
         cardDecreeText: document.getElementById('cardDecreeText'),
 
-        // Card Content
+        // Card Content & Ticker
+        marketTicker: document.getElementById('marketTicker'),
         charAvatar: document.getElementById('charAvatar'),
         charRole: document.getElementById('charRole'),
         charName: document.getElementById('charName'),
         dilemmaTitle: document.getElementById('dilemmaTitle'),
         dilemmaText: document.getElementById('dilemmaText'),
-        choiceAText: document.getElementById('choiceAText'),
-        choiceBText: document.getElementById('choiceBText'),
-        choiceAPreview: document.getElementById('choiceAPreview'),
-        choiceBPreview: document.getElementById('choiceBPreview'),
+        btnRollDice: document.getElementById('btnRollDice'),
+
+        // 3 Choices
         btnChoiceA: document.getElementById('btnChoiceA'),
+        choiceAText: document.getElementById('choiceAText'),
+        choiceAPreview: document.getElementById('choiceAPreview'),
+
         btnChoiceB: document.getElementById('btnChoiceB'),
+        choiceBText: document.getElementById('choiceBText'),
+        choiceBPreview: document.getElementById('choiceBPreview'),
+
+        btnChoiceC: document.getElementById('btnChoiceC'),
+        choiceCText: document.getElementById('choiceCText'),
+        choiceCPreview: document.getElementById('choiceCPreview'),
 
         // Header controls
         btnSound: document.getElementById('btnSound'),
@@ -403,6 +583,15 @@
         gazetteDeltaBadges: document.getElementById('gazetteDeltaBadges'),
         gazetteDoctrineNote: document.getElementById('gazetteDoctrineNote'),
         btnNextTurn: document.getElementById('btnNextTurn'),
+
+        // Dice Fortune Modal
+        modalDice: document.getElementById('modalDice'),
+        diceCube: document.getElementById('diceCube'),
+        diceResultHeading: document.getElementById('diceResultHeading'),
+        diceResultText: document.getElementById('diceResultText'),
+        diceDeltaBadge: document.getElementById('diceDeltaBadge'),
+        btnRollNow: document.getElementById('btnRollNow'),
+        btnCloseDice: document.getElementById('btnCloseDice'),
 
         // Game Over Modal
         modalGameOver: document.getElementById('modalGameOver'),
@@ -462,9 +651,18 @@
       this.history = [];
       this.gameOver = false;
       this.inModal = false;
+      this.diceUsed = false;
+
+      // Reset dice button
+      if (this.dom.btnRollDice) {
+        this.dom.btnRollDice.disabled = false;
+        this.dom.btnRollDice.innerHTML = `<span class="btn-icon">🎲</span><span class="btn-dice-label">ЖРЕБIЙ (1 РАЗЪ)</span>`;
+        this.dom.btnRollDice.setAttribute('title', 'Испытать купеческую удачу на ярмарке [D]');
+      }
 
       // Close all modals
       this.hideModal(this.dom.modalFeedback);
+      this.hideModal(this.dom.modalDice);
       this.hideModal(this.dom.modalGameOver);
       this.hideModal(this.dom.modalVictory);
       this.hideModal(this.dom.modalQr);
@@ -476,9 +674,12 @@
     }
 
     bindEvents() {
-      // Choice Buttons
+      // 3 Choice Buttons
       this.dom.btnChoiceA.addEventListener('click', () => this.makeChoice('A'));
       this.dom.btnChoiceB.addEventListener('click', () => this.makeChoice('B'));
+      if (this.dom.btnChoiceC) {
+        this.dom.btnChoiceC.addEventListener('click', () => this.makeChoice('C'));
+      }
 
       // Hover Previews
       this.dom.btnChoiceA.addEventListener('mouseenter', () => this.previewChoiceDeltas('A'));
@@ -490,6 +691,24 @@
       this.dom.btnChoiceB.addEventListener('mouseleave', () => this.clearHoverPreview());
       this.dom.btnChoiceB.addEventListener('focus', () => this.previewChoiceDeltas('B'));
       this.dom.btnChoiceB.addEventListener('blur', () => this.clearHoverPreview());
+
+      if (this.dom.btnChoiceC) {
+        this.dom.btnChoiceC.addEventListener('mouseenter', () => this.previewChoiceDeltas('C'));
+        this.dom.btnChoiceC.addEventListener('mouseleave', () => this.clearHoverPreview());
+        this.dom.btnChoiceC.addEventListener('focus', () => this.previewChoiceDeltas('C'));
+        this.dom.btnChoiceC.addEventListener('blur', () => this.clearHoverPreview());
+      }
+
+      // Dice roll trigger
+      if (this.dom.btnRollDice) {
+        this.dom.btnRollDice.addEventListener('click', () => this.openDiceModal());
+      }
+      if (this.dom.btnRollNow) {
+        this.dom.btnRollNow.addEventListener('click', () => this.rollDice());
+      }
+      if (this.dom.btnCloseDice) {
+        this.dom.btnCloseDice.addEventListener('click', () => this.closeDiceModal());
+      }
 
       // Next Turn Button in Gazette Modal
       this.dom.btnNextTurn.addEventListener('click', () => this.advanceFromFeedback());
@@ -551,13 +770,15 @@
     }
 
     handleKeydown(e) {
-      // Don't trigger if typing in an input
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
 
       // Close open informational modals on Escape
       if (e.key === 'Escape') {
         if (!this.dom.modalQr.hidden) this.hideModal(this.dom.modalQr);
         if (!this.dom.modalAbout.hidden) this.hideModal(this.dom.modalAbout);
+        if (!this.dom.modalDice.hidden && this.dom.btnCloseDice.hidden === false) {
+          this.closeDiceModal();
+        }
         return;
       }
 
@@ -570,17 +791,36 @@
         return;
       }
 
+      // Roll or close dice on Space/Enter if dice modal is open
+      if (!this.dom.modalDice.hidden) {
+        if (e.code === 'Space' || e.key === 'Enter') {
+          e.preventDefault();
+          if (!this.dom.btnRollNow.hidden && !this.dom.btnRollNow.disabled) {
+            this.rollDice();
+          } else if (!this.dom.btnCloseDice.hidden) {
+            this.closeDiceModal();
+          }
+        }
+        return;
+      }
+
       // If game is over or modals are open, block game choices
       if (this.gameOver || !this.dom.modalGameOver.hidden || !this.dom.modalVictory.hidden) {
         return;
       }
 
-      if (e.key === '1' || e.key === 'ArrowLeft') {
+      if (e.key === '1') {
         e.preventDefault();
         this.makeChoice('A');
-      } else if (e.key === '2' || e.key === 'ArrowRight') {
+      } else if (e.key === '2') {
         e.preventDefault();
         this.makeChoice('B');
+      } else if (e.key === '3') {
+        e.preventDefault();
+        this.makeChoice('C');
+      } else if (e.key === 'd' || e.key === 'D' || e.key === 'в' || e.key === 'В') {
+        e.preventDefault();
+        this.openDiceModal();
       } else if (e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') {
         e.preventDefault();
         this.toggleFullscreen();
@@ -624,6 +864,10 @@
       this.dom.cardPentabasisText.textContent = `ПЕНТАБАЗИС: ${card.pentabasis}`;
       this.dom.cardDecreeText.textContent = `УКАЗ № 809: ${card.decree}`;
 
+      if (this.dom.marketTicker) {
+        this.dom.marketTicker.textContent = card.marketNews;
+      }
+
       this.dom.charAvatar.textContent = card.avatar;
       this.dom.charRole.textContent = card.charRole;
       this.dom.charName.textContent = card.charName;
@@ -631,16 +875,23 @@
       this.dom.dilemmaTitle.textContent = card.title;
       this.dom.dilemmaText.textContent = card.narrative;
 
-      // Choice A
+      // Choice A (Темщик)
       this.dom.choiceAText.textContent = card.choiceA.text;
       this.renderChoicePreviewBadges(this.dom.choiceAPreview, card.choiceA.deltas);
 
-      // Choice B
+      // Choice B (Идеалист)
       this.dom.choiceBText.textContent = card.choiceB.text;
       this.renderChoicePreviewBadges(this.dom.choiceBPreview, card.choiceB.deltas);
+
+      // Choice C (Купеческая хватка)
+      if (this.dom.choiceCText && card.choiceC) {
+        this.dom.choiceCText.textContent = card.choiceC.text;
+        this.renderChoicePreviewBadges(this.dom.choiceCPreview, card.choiceC.deltas);
+      }
     }
 
     renderChoicePreviewBadges(container, deltas) {
+      if (!container) return;
       container.innerHTML = `
         <span class="preview-item ${deltas.capital >= 0 ? 'pos' : 'neg'}">💰 ${deltas.capital >= 0 ? '+' : ''}${deltas.capital} Капитал</span>
         <span class="preview-item ${deltas.honor >= 0 ? 'pos' : 'neg'}">📜 ${deltas.honor >= 0 ? '+' : ''}${deltas.honor} Имя</span>
@@ -654,7 +905,11 @@
     previewChoiceDeltas(choiceLetter) {
       if (this.turn >= SCENARIOS.length) return;
       const card = SCENARIOS[this.turn];
-      const deltas = choiceLetter === 'A' ? card.choiceA.deltas : card.choiceB.deltas;
+      let deltas;
+      if (choiceLetter === 'A') deltas = card.choiceA.deltas;
+      else if (choiceLetter === 'B') deltas = card.choiceB.deltas;
+      else if (choiceLetter === 'C') deltas = card.choiceC.deltas;
+      if (!deltas) return;
 
       this.applyGhostPreview(this.dom.ghostCapital, this.dom.deltaCapital, this.dom.cardScaleCapital, this.capital, deltas.capital);
       this.applyGhostPreview(this.dom.ghostHonor, this.dom.deltaHonor, this.dom.cardScaleHonor, this.honor, deltas.honor);
@@ -700,7 +955,11 @@
     makeChoice(choiceLetter) {
       if (this.gameOver || this.inModal) return;
       const card = SCENARIOS[this.turn];
-      const choice = choiceLetter === 'A' ? card.choiceA : card.choiceB;
+      let choice;
+      if (choiceLetter === 'A') choice = card.choiceA;
+      else if (choiceLetter === 'B') choice = card.choiceB;
+      else if (choiceLetter === 'C') choice = card.choiceC;
+      if (!choice) return;
 
       this.sound.playStamp();
       this.clearHoverPreview();
@@ -783,7 +1042,94 @@
     }
 
     // ========================================================================
-    // ПРОВЕРКА ПОРАЖЕНИЯ (МГНОВЕННЫЙ БАНКРОТСТВО)
+    // КУПЕЧЕСКИЙ ЖРЕБИЙ (ИСПЫТАНИЕ УДАЧИ 1 РАЗ ЗА ИГРУ)
+    // ========================================================================
+    openDiceModal() {
+      if (this.diceUsed || this.gameOver || this.inModal) return;
+      this.inModal = true;
+      this.dom.diceCube.textContent = "🎲";
+      this.dom.diceCube.classList.remove('rolling');
+      this.dom.diceResultHeading.textContent = "Бросаем кости на сукно...";
+      this.dom.diceResultText.textContent = "Купец, надейся на верный глаз, трезвый расчёт и милость фортуны!";
+      this.dom.diceDeltaBadge.innerHTML = "";
+      this.dom.btnRollNow.hidden = false;
+      this.dom.btnRollNow.disabled = false;
+      this.dom.btnCloseDice.hidden = true;
+
+      this.showModal(this.dom.modalDice);
+    }
+
+    rollDice() {
+      if (this.diceUsed) return;
+      this.dom.btnRollNow.disabled = true;
+      this.sound.playDiceRoll();
+      this.dom.diceCube.classList.add('rolling');
+
+      setTimeout(() => {
+        this.dom.diceCube.classList.remove('rolling');
+        const rollIndex = Math.floor(Math.random() * DICE_EVENTS.length);
+        const event = DICE_EVENTS[rollIndex];
+
+        this.dom.diceCube.textContent = event.icon;
+        this.dom.diceResultHeading.textContent = `${event.roll} ОЧКОВ: ${event.name}`;
+        this.dom.diceResultText.textContent = event.desc;
+
+        // Apply deltas
+        const d = event.deltas;
+        this.capital = Math.max(0, Math.min(100, this.capital + d.capital));
+        this.honor = Math.max(0, Math.min(100, this.honor + d.honor));
+        this.city = Math.max(0, Math.min(100, this.city + d.city));
+        this.updateStatsUI();
+
+        // Render delta badge
+        let badgesHtml = '';
+        if (d.capital !== 0) {
+          badgesHtml += `<span class="preview-item ${d.capital > 0 ? 'pos' : 'neg'}">💰 ${d.capital > 0 ? '+' : ''}${d.capital} Капитал</span> `;
+        }
+        if (d.honor !== 0) {
+          badgesHtml += `<span class="preview-item ${d.honor > 0 ? 'pos' : 'neg'}">📜 ${d.honor > 0 ? '+' : ''}${d.honor} Имя</span> `;
+        }
+        if (d.city !== 0) {
+          badgesHtml += `<span class="preview-item ${d.city > 0 ? 'pos' : 'neg'}">🏛️ ${d.city > 0 ? '+' : ''}${d.city} Город</span>`;
+        }
+        if (d.capital === 0 && d.honor === 0 && d.city === 0) {
+          badgesHtml = `<span class="preview-item neutral">⚖️ Без перемен на весах</span>`;
+        }
+        this.dom.diceDeltaBadge.innerHTML = badgesHtml;
+
+        if (d.capital >= 15 || d.honor >= 15) {
+          this.sound.playCoin();
+        } else if (d.capital < 0 || d.honor < 0) {
+          this.sound.playLoss();
+        }
+
+        // Mark dice as used
+        this.diceUsed = true;
+        this.dom.btnRollNow.hidden = true;
+        this.dom.btnCloseDice.hidden = false;
+        this.dom.btnCloseDice.focus();
+
+        if (this.dom.btnRollDice) {
+          this.dom.btnRollDice.disabled = true;
+          this.dom.btnRollDice.innerHTML = `<span class="btn-icon">✓</span><span class="btn-dice-label">ЖРЕБIЙ БРОШЕНЪ</span>`;
+          this.dom.btnRollDice.setAttribute('title', 'Жребий уже использован в этой партии');
+        }
+      }, 700);
+    }
+
+    closeDiceModal() {
+      this.hideModal(this.dom.modalDice);
+      this.inModal = false;
+
+      // Check if dice roll caused bankruptcy
+      const lossReason = this.checkBankruptcy();
+      if (lossReason) {
+        this.triggerLoss(lossReason);
+      }
+    }
+
+    // ========================================================================
+    // ПРОВЕРКА ПОРАЖЕНИЯ (МГНОВЕННОЕ БАНКРОТСТВО)
     // ========================================================================
     checkBankruptcy() {
       if (this.capital <= 0) return 'capital';
@@ -804,17 +1150,17 @@
       if (reason === 'capital') {
         this.dom.gameOverTitle.textContent = "КАССОВЫЙ РАЗРЫВЪ!";
         this.dom.gameOverSub.textContent = "Крах финансовой устойчивости лавки";
-        this.dom.gameOverDesc.textContent = "Лебовски так и не нашёл деньги. Добрые намерения без финансовой грамотности привели к закрытию лавки.";
-        this.dom.gameOverLesson.textContent = "Указ № 809 & ОРГ: Бизнес должен быть рентабелен и жизнеспособен, иначе все созидательные замыслы останутся несбыточными мечтами.";
+        this.dom.gameOverDesc.textContent = "Лебовски так и не нашёл деньги. Слепой наивный идеализм и благотворительность без рентабельности опустошили кассу до нуля. Арендаторы выставили имущество на торги.";
+        this.dom.gameOverLesson.textContent = "Указ № 809 & ОРГ: Бизнес обязан быть рентабелен и жизнеспособен! Созидание невозможно без финансовой грамотности и умения вести счет деньгам.";
       } else if (reason === 'honor') {
         this.dom.gameOverTitle.textContent = "ПОТЕРЯ КУПЕЧЕСКОЙ ЧЕСТИ!";
         this.dom.gameOverSub.textContent = "Моральный крах и изгнание из гильдии";
-        this.dom.gameOverDesc.textContent = "У тебя полный кошелёк, но в городе с тобой больше никто не здоровается, сотрудники уволились, а клиенты ушли. В России бизнес без совести долго не живёт (Указ № 809 доказан!).";
-        this.dom.gameOverLesson.textContent = "Указ № 809: Приоритет духовного над материальным — не абстракция, а закон долговечности предпринимательства.";
+        this.dom.gameOverDesc.textContent = "У тебя полный кошелёк золота, но в городе с тобой больше никто не здоровается, мастера уволились, а покупатели ушли. В России бизнес без совести долго не живёт (Указ № 809 доказан!).";
+        this.dom.gameOverLesson.textContent = "Указ № 809: Приоритет духовного над материальным — не абстракция, а непреложный закон долговечности предпринимательства.";
       } else if (reason === 'city') {
         this.dom.gameOverTitle.textContent = "ГОРОДЪ В УПАДКЕ!";
-        this.dom.gameOverSub.textContent = "Разрушение среды и гибель спроса";
-        this.dom.gameOverDesc.textContent = "Ты выжимал все соки из района, не вкладываясь в людей. Покупатели разъехались, и твой бизнес рухнул вместе со средой вокруг.";
+        this.dom.gameOverSub.textContent = "Разрушение среды и гибель платежеспособного спроса";
+        this.dom.gameOverDesc.textContent = "Ты выжимал все соки из района, не вкладываясь в людей и общее благо. Покупатели разъехались, и твой бизнес рухнул вместе со средой вокруг.";
         this.dom.gameOverLesson.textContent = "Пентабазис (Общество и Страна): Дело процветает лишь тогда, когда процветает земля, на которой оно стоит.";
       }
 
@@ -838,10 +1184,10 @@
       this.dom.finalCityStatus.textContent = this.city >= 70 ? "Гордость губернии" : (this.city >= 40 ? "Польза обществу" : "Скудный вклад");
 
       // Определение купеческого звания
-      if (this.capital >= 60 && this.honor >= 60 && this.city >= 60) {
+      if (this.capital >= 55 && this.honor >= 55 && this.city >= 55) {
         this.dom.diplomaRankTitle.textContent = "КУПЕЦЪ 1-Й ГИЛЬДИИ И МЕЦЕНАТЪ";
-        this.dom.diplomaRankDesc.textContent = "Высший пилотаж! Вы доказали, что традиционные духовно-нравственные ценности и созидательный честный труд — главный секрет устойчивой прибыли и процветания державы.";
-      } else if (this.honor < 35 || this.city < 35) {
+        this.dom.diplomaRankDesc.textContent = "Высший пилотаж созидательного бизнеса! Вы доказали, что традиционные духовно-нравственные ценности, трезвый купеческий расчёт и созидательный честный труд — главный секрет долговечного дела и процветания державы.";
+      } else if (this.honor < 40 || this.city < 40) {
         this.dom.diplomaRankTitle.textContent = "СУЕТОЛОГЪ-ТЕМЩИКЪ";
         this.dom.diplomaRankDesc.textContent = "Вы чудом не прогорели, но репутация висит на волоске. Сиюминутная нажива обогатила карман, но в долгую темные схемы всегда ведут к краху и презрению земляков.";
       } else {
@@ -856,11 +1202,11 @@
     // ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ МОДАЛОК И QR
     // ========================================================================
     showModal(modal) {
-      modal.removeAttribute('hidden');
+      if (modal) modal.removeAttribute('hidden');
     }
 
     hideModal(modal) {
-      modal.setAttribute('hidden', '');
+      if (modal) modal.setAttribute('hidden', '');
     }
 
     openQrModal() {

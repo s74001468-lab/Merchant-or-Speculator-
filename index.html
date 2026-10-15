@@ -188,6 +188,12 @@
 
         <!-- Card Core Content / Ситуация и Лицо -->
         <div class="bill-body">
+          <!-- Биржевая сводка тура -->
+          <div class="market-news-ticker" id="marketTicker">
+            <span class="ticker-badge">ВѢСТНИКЪ БИРЖИ:</span>
+            <span class="ticker-text" id="marketTickerText">Спрос на ремесленную выпечку стабилен, цены на сырьё колеблются.</span>
+          </div>
+
           <div class="character-plate">
             <div class="char-portrait-frame">
               <span class="char-avatar" id="charAvatar">🧈</span>
@@ -195,6 +201,12 @@
             <div class="char-info">
               <span class="char-role" id="charRole">ГЛАВНЫЙ ФИГУРАНТЪ ДѢЛА</span>
               <h2 class="char-name" id="charName">Поставщикъ Ашотъ & пальмовый маргаринъ</h2>
+            </div>
+            <div class="char-action-corner">
+              <button type="button" class="vintage-btn btn-dice" id="btnRollDice" title="Испытать купеческую удачу [D]" aria-label="Купеческий жребий">
+                <span class="btn-icon">🎲</span>
+                <span class="btn-dice-label">ЖРЕБIЙ (1 РАЗЪ)</span>
+              </button>
             </div>
           </div>
 
@@ -206,48 +218,70 @@
           </div>
         </div>
 
-        <!-- 2 Big Decision Buttons / Выбор пути -->
-        <div class="bill-choices-grid">
+        <!-- 3 Big Decision Buttons / Три пути предпринимателя -->
+        <div class="bill-choices-grid choices-three-col">
           
           <!-- Choice A: Темщик / Схитрить -->
           <button class="choice-btn choice-temshik" id="btnChoiceA" data-choice="A" aria-label="Выбрать путь темщика">
             <div class="choice-btn-top">
               <div class="choice-path-tag">
                 <span class="key-shortcut">[1]</span>
-                <span class="path-title">ПУТЬ ТЕМЩИКА</span>
-                <span class="path-subtitle">СИЮМИНУТНАЯ ВЫГОДА</span>
+                <span class="path-title">УШЛЫЙ ТЕМЩИКЪ</span>
+                <span class="path-subtitle">СИЮМИНУТНАЯ НАЖИВА</span>
               </div>
-              <span class="choice-badge-accent">СХИТРИТЬ 🦊</span>
+              <span class="choice-badge-accent">СХЕМА 🦊</span>
             </div>
             
             <p class="choice-btn-quote" id="choiceAText">
-              «Закупаем маргарин! Где деньги, Лебовски?!»
+              «Закупаем технический маргарин! Где деньги, Лебовски?!»
             </p>
 
             <div class="choice-consequences-preview" id="choiceAPreview">
-              <span class="preview-item pos">💰 +20 Капитал</span>
+              <span class="preview-item pos">💰 +25 Капитал</span>
               <span class="preview-item neg">📜 -25 Честное Имя</span>
               <span class="preview-item neg">🏛️ -15 Благо Города</span>
             </div>
           </button>
 
-          <!-- Choice B: Купец / По чести -->
-          <button class="choice-btn choice-merchant" id="btnChoiceB" data-choice="B" aria-label="Выбрать купеческое слово">
+          <!-- Choice B: Наивный идеалист / Слив казны -->
+          <button class="choice-btn choice-idealist" id="btnChoiceB" data-choice="B" aria-label="Выбрать путь идеалиста">
             <div class="choice-btn-top">
               <div class="choice-path-tag">
                 <span class="key-shortcut">[2]</span>
-                <span class="path-title">КУПЕЧЕСКОЕ СЛОВО</span>
-                <span class="path-subtitle">СОЗИДАТЕЛЬНЫЙ ПУТЬ</span>
+                <span class="path-title">НАИВНЫЙ ИДЕАЛИСТЪ</span>
+                <span class="path-subtitle">СЛИВЪ КАЗНЫ / РИСКЪ</span>
               </div>
-              <span class="choice-badge-accent">ПО ЧЕСТИ 👑</span>
+              <span class="choice-badge-accent tag-idealist">СВЯТОША 🕊️</span>
             </div>
 
             <p class="choice-btn-quote" id="choiceBText">
-              «Договориться с соседями-пекарями о совместной оптовой закупке настоящего масла»
+              «Купить альпийское масло по тройной цене за счет остатка кассы»
             </p>
 
             <div class="choice-consequences-preview" id="choiceBPreview">
-              <span class="preview-item neg">💰 -5 Капитал</span>
+              <span class="preview-item neg">💰 -25 Капитал</span>
+              <span class="preview-item pos">📜 +20 Честное Имя</span>
+              <span class="preview-item pos">🏛️ +10 Благо Города</span>
+            </div>
+          </button>
+
+          <!-- Choice C: Купеческая хватка / Смекалка -->
+          <button class="choice-btn choice-merchant" id="btnChoiceC" data-choice="C" aria-label="Выбрать купеческую хватку">
+            <div class="choice-btn-top">
+              <div class="choice-path-tag">
+                <span class="key-shortcut">[3]</span>
+                <span class="path-title">КУПЕЧЕСКАЯ ХВАТКА</span>
+                <span class="path-subtitle">СМЕКАЛКА 1-Й ГИЛЬДИИ</span>
+              </div>
+              <span class="choice-badge-accent">РАСЧЕТЪ 👑</span>
+            </div>
+
+            <p class="choice-btn-quote" id="choiceCText">
+              «Создать кооператив с пекарями и выбить скидку 30% напрямую с завода»
+            </p>
+
+            <div class="choice-consequences-preview" id="choiceCPreview">
+              <span class="preview-item pos">💰 +10 Капитал</span>
               <span class="preview-item pos">📜 +15 Честное Имя</span>
               <span class="preview-item pos">🏛️ +15 Благо Города</span>
             </div>
@@ -267,8 +301,10 @@
         <span class="footer-names">Авторы: <strong>Котухов Сергей, Сиволод Дмитрий, Ветер Михаил</strong></span>
       </div>
       <div class="footer-hotkeys-hint">
-        <span class="hotkey-pill"><kbd>1</kbd> / <kbd>←</kbd> Схитрить</span>
-        <span class="hotkey-pill"><kbd>2</kbd> / <kbd>→</kbd> По чести</span>
+        <span class="hotkey-pill"><kbd>1</kbd> Темщик</span>
+        <span class="hotkey-pill"><kbd>2</kbd> Идеалист</span>
+        <span class="hotkey-pill"><kbd>3</kbd> Купец</span>
+        <span class="hotkey-pill"><kbd>D</kbd> Жребий</span>
         <span class="hotkey-pill"><kbd>Пробел</kbd> Далее</span>
       </div>
     </footer>
@@ -352,6 +388,36 @@
       <div class="gameover-actions">
         <button class="vintage-btn btn-primary btn-large" id="btnRestartFromLoss">
           <span>ПОПРОБОВАТЬ СНОВА СЪ ПЕРВОЙ ГИЛЬДИИ 🔄</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DICE ROLL / КУПЕЧЕСКИЙ ЖРЕБИЙ -->
+  <div class="modal-backdrop" id="modalDice" role="dialog" aria-modal="true" aria-labelledby="diceTitle" hidden>
+    <div class="dice-dialog-card">
+      <div class="dice-top-banner">
+        <span class="dice-crest">🎲</span>
+        <span class="dice-sub">НИЖЕГОРОДСКАЯ ЯРМАРКА • ИСПЫТАНIЕ ФОРТУНЫ</span>
+      </div>
+      <h3 class="dice-title" id="diceTitle">КУПЕЧЕСКIЙ ЖРЕБIЙ</h3>
+      
+      <div class="dice-cube-stage">
+        <div class="dice-cube" id="diceCube">🎲</div>
+      </div>
+
+      <div class="dice-result-box" id="diceResultBox">
+        <h4 class="dice-result-heading" id="diceResultHeading">Бросаем кости на сукно...</h4>
+        <p class="dice-result-text" id="diceResultText">Купец, надейся на верный глаз и милость небес!</p>
+        <div class="dice-delta-badge" id="diceDeltaBadge"></div>
+      </div>
+
+      <div class="dice-actions">
+        <button type="button" class="vintage-btn btn-primary btn-large btn-block" id="btnRollNow">
+          <span>БРОСИТЬ КОСТИ! 🎲</span>
+        </button>
+        <button type="button" class="vintage-btn btn-secondary btn-block" id="btnCloseDice" hidden>
+          <span>ПРИНЯТЬ ВОЛЮ СУДЬБЫ →</span>
         </button>
       </div>
     </div>
