@@ -748,13 +748,14 @@ body {
 .choice-btn {
   background-color: var(--bg-card);
   border: var(--border-thick);
+  border-top: 5px solid var(--gold-ochre);
   box-shadow: var(--shadow-hard);
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 2px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 6px;
+  justify-content: flex-start;
+  gap: 8px;
   cursor: pointer;
   text-align: left;
   transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.12s ease;
@@ -765,6 +766,7 @@ body {
 .choice-btn:hover {
   transform: translate(-2px, -2px);
   box-shadow: 7px 7px 0px var(--ink-black);
+  background-color: #FFFDF5;
 }
 
 .choice-btn:active {
@@ -772,102 +774,65 @@ body {
   box-shadow: var(--shadow-pressed);
 }
 
-/* 1. Левая кнопка: Путь Темщика */
-.choice-temshik {
-  border-left: 6px solid var(--cinnabar);
-}
-.choice-temshik:hover {
-  background-color: #FFF9F8;
-}
-
-/* 2. Средняя кнопка: Наивный идеалист (слив казны) */
-.choice-idealist {
-  border-left: 6px solid #486581;
-}
-.choice-idealist:hover {
-  background-color: #F0F4F8;
-}
-.choice-idealist .tag-idealist {
-  background-color: #E2E8F0;
-  color: #334E68;
-  border-color: #627D98;
-}
-
-/* 3. Правая кнопка: Купеческая хватка */
-.choice-merchant {
-  border-left: 6px solid var(--emerald);
-}
-.choice-merchant:hover {
-  background-color: #F8FCF9;
-}
-
 .choice-btn-top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #D8D0BE;
 }
 
 .choice-path-tag {
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
+  gap: 6px;
 }
 
 .key-shortcut {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
-  color: var(--ink-muted);
+  color: var(--gold-dark);
 }
 
 .path-title {
   font-family: var(--font-serif-display);
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   color: var(--ink-black);
   text-transform: uppercase;
-  line-height: 1.1;
-}
-
-.path-subtitle {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--ink-muted);
-  text-transform: uppercase;
+  line-height: 1.15;
 }
 
 .choice-badge-accent {
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 3px 8px;
   border-radius: 2px;
   border: var(--border-thin);
+  background-color: var(--bg-page-tint);
+  color: var(--ink-black);
+  border-color: #C8BEA8;
   white-space: nowrap;
 }
 
-.choice-temshik .choice-badge-accent {
-  background-color: var(--cinnabar-light);
-  color: var(--cinnabar);
-  border-color: var(--cinnabar);
-}
-
-.choice-merchant .choice-badge-accent {
-  background-color: var(--emerald-light);
-  color: var(--emerald-dark);
-  border-color: var(--emerald);
+.choice-btn:hover .choice-badge-accent {
+  background-color: var(--gold-light);
+  border-color: var(--gold-dark);
 }
 
 .choice-btn-quote {
-  font-size: 21px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: var(--ink-black);
   line-height: 1.35;
   font-style: normal;
-  margin: 2px 0;
+  margin: 0;
 }
 
 /* Превью последствий на самой кнопке */

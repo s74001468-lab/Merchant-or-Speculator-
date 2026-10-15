@@ -218,73 +218,52 @@
           </div>
         </div>
 
-        <!-- 3 Big Decision Buttons / Три пути предпринимателя -->
+        <!-- 3 Big Decision Buttons / Три купеческих решения (без спойлеров) -->
         <div class="bill-choices-grid choices-three-col">
           
-          <!-- Choice A: Темщик / Схитрить -->
-          <button class="choice-btn choice-temshik" id="btnChoiceA" data-choice="A" aria-label="Выбрать путь темщика">
+          <!-- Choice A: Вариант 1 -->
+          <button class="choice-btn" id="btnChoiceA" data-choice="A" aria-label="Выбрать решение 1">
             <div class="choice-btn-top">
               <div class="choice-path-tag">
                 <span class="key-shortcut">[1]</span>
-                <span class="path-title">УШЛЫЙ ТЕМЩИКЪ</span>
-                <span class="path-subtitle">СИЮМИНУТНАЯ НАЖИВА</span>
+                <span class="path-title" id="choiceATitle">ДЕШЕВЫЙ МАРГАРИНЪ</span>
               </div>
-              <span class="choice-badge-accent">СХЕМА 🦊</span>
+              <span class="choice-badge-accent" id="choiceABadge">СЫРЬЕ I</span>
             </div>
             
             <p class="choice-btn-quote" id="choiceAText">
-              «Закупаем технический маргарин! Где деньги, Лебовски?!»
+              «Закупить технический маргарин с ванилином у перекупа: маржа утроится!»
             </p>
-
-            <div class="choice-consequences-preview" id="choiceAPreview">
-              <span class="preview-item pos">💰 +25 Капитал</span>
-              <span class="preview-item neg">📜 -25 Честное Имя</span>
-              <span class="preview-item neg">🏛️ -15 Благо Города</span>
-            </div>
           </button>
 
-          <!-- Choice B: Наивный идеалист / Слив казны -->
-          <button class="choice-btn choice-idealist" id="btnChoiceB" data-choice="B" aria-label="Выбрать путь идеалиста">
+          <!-- Choice B: Вариант 2 -->
+          <button class="choice-btn" id="btnChoiceB" data-choice="B" aria-label="Выбрать решение 2">
             <div class="choice-btn-top">
               <div class="choice-path-tag">
                 <span class="key-shortcut">[2]</span>
-                <span class="path-title">НАИВНЫЙ ИДЕАЛИСТЪ</span>
-                <span class="path-subtitle">СЛИВЪ КАЗНЫ / РИСКЪ</span>
+                <span class="path-title" id="choiceBTitle">АЛЬПИЙСКОЕ МАСЛО</span>
               </div>
-              <span class="choice-badge-accent tag-idealist">СВЯТОША 🕊️</span>
+              <span class="choice-badge-accent" id="choiceBBadge">ИМПОРТЪ II</span>
             </div>
 
             <p class="choice-btn-quote" id="choiceBText">
-              «Купить альпийское масло по тройной цене за счет остатка кассы»
+              «Выписать заморское альпийское масло по тройной цене за счет остатка кассы»
             </p>
-
-            <div class="choice-consequences-preview" id="choiceBPreview">
-              <span class="preview-item neg">💰 -25 Капитал</span>
-              <span class="preview-item pos">📜 +20 Честное Имя</span>
-              <span class="preview-item pos">🏛️ +10 Благо Города</span>
-            </div>
           </button>
 
-          <!-- Choice C: Купеческая хватка / Смекалка -->
-          <button class="choice-btn choice-merchant" id="btnChoiceC" data-choice="C" aria-label="Выбрать купеческую хватку">
+          <!-- Choice C: Вариант 3 -->
+          <button class="choice-btn" id="btnChoiceC" data-choice="C" aria-label="Выбрать решение 3">
             <div class="choice-btn-top">
               <div class="choice-path-tag">
                 <span class="key-shortcut">[3]</span>
-                <span class="path-title">КУПЕЧЕСКАЯ ХВАТКА</span>
-                <span class="path-subtitle">СМЕКАЛКА 1-Й ГИЛЬДИИ</span>
+                <span class="path-title" id="choiceCTitle">АРТЕЛЬ ПЕКАРЕЙ</span>
               </div>
-              <span class="choice-badge-accent">РАСЧЕТЪ 👑</span>
+              <span class="choice-badge-accent" id="choiceCBadge">АРТЕЛЬ III</span>
             </div>
 
             <p class="choice-btn-quote" id="choiceCText">
-              «Создать кооператив с пекарями и выбить скидку 30% напрямую с завода»
+              «Создать закупочный кооператив с пекарями и выбить скидку 30% напрямую с завода»
             </p>
-
-            <div class="choice-consequences-preview" id="choiceCPreview">
-              <span class="preview-item pos">💰 +10 Капитал</span>
-              <span class="preview-item pos">📜 +15 Честное Имя</span>
-              <span class="preview-item pos">🏛️ +15 Благо Города</span>
-            </div>
           </button>
 
         </div>
@@ -301,9 +280,9 @@
         <span class="footer-names">Авторы: <strong>Котухов Сергей, Сиволод Дмитрий, Ветер Михаил</strong></span>
       </div>
       <div class="footer-hotkeys-hint">
-        <span class="hotkey-pill"><kbd>1</kbd> Темщик</span>
-        <span class="hotkey-pill"><kbd>2</kbd> Идеалист</span>
-        <span class="hotkey-pill"><kbd>3</kbd> Купец</span>
+        <span class="hotkey-pill"><kbd>1</kbd> Решение 1</span>
+        <span class="hotkey-pill"><kbd>2</kbd> Решение 2</span>
+        <span class="hotkey-pill"><kbd>3</kbd> Решение 3</span>
         <span class="hotkey-pill"><kbd>D</kbd> Жребий</span>
         <span class="hotkey-pill"><kbd>Пробел</kbd> Далее</span>
       </div>
