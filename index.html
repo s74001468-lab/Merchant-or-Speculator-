@@ -475,17 +475,25 @@
       </div>
 
       <div class="qr-code-display" id="qrCodeContainer">
-        <!-- SVG QR code rendered dynamically -->
+        <!-- Настоящий ISO QR-код через qrcode.js -->
       </div>
 
-      <div class="qr-url-box">
-        <span class="qr-url-text" id="qrUrlText">https://merchant-word.vercel.app</span>
-        <button class="vintage-btn btn-small" id="btnCopyUrl">
-          <span id="copyUrlLabel">СКОПИРОВАТЬ</span>
-        </button>
+      <div class="qr-url-input-group">
+        <label for="qrUrlInput" class="qr-input-label">Ссылка для сканирования камерой смартфона:</label>
+        <div class="qr-url-box">
+          <input type="url" id="qrUrlInput" class="qr-input-field" value="https://github.com/s74001468-lab/Merchant-or-Speculator-" aria-label="Ссылка для QR-кода">
+          <button class="vintage-btn btn-small" id="btnCopyUrl">
+            <span id="copyUrlLabel">СКОПИРОВАТЬ</span>
+          </button>
+        </div>
       </div>
 
-      <p class="qr-hint">Игра полностью адаптирована для мобильных экранов и сенсорного управления.</p>
+      <div class="qr-presets-row">
+        <button type="button" class="vintage-btn btn-tiny" id="btnPresetGithub" title="Ссылка на GitHub">📦 GitHub</button>
+        <button type="button" class="vintage-btn btn-tiny" id="btnPresetCurrent" title="Текущий адрес страницы">🌐 Текущий URL</button>
+      </div>
+
+      <p class="qr-hint">Наведите камеру смартфона на экран — игра мгновенно откроется в браузере телефона.</p>
     </div>
   </div>
 
@@ -536,6 +544,7 @@
     </div>
   </div>
 
+  <script src="qrcode.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

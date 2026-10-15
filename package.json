@@ -1,0 +1,19 @@
+{
+  "name": "merchant-or-speculator",
+  "version": "1.0.0",
+  "description": "Браузерная карточная бизнес-игра «КУПЕЧЕСКОЕ СЛОВО: Построй дело на века» (ОРГ, Указ № 809, Пентабазис)",
+  "scripts": {
+    "start": "python3 -m http.server 3000"
+  },
+  "keywords": [
+    "education",
+    "business-game",
+    "pentabasis",
+    "decree-809"
+  ],
+  "author": "Котухов Сергей, Сиволод Дмитрий, Ветер Михаил",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}

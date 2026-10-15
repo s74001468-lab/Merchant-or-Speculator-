@@ -332,77 +332,8 @@
   }
 
   // ==========================================================================
-  // 3. SVG QR CODE GENERATOR (ДЛЯ ЗАЛА И СМАРТФОНОВ)
+  // 3. QR-КОД ГЕНЕРАТОР: ИСПОЛЬЗУЕТСЯ СТАНДАРТНЫЙ QRCODE.MIN.JS
   // ==========================================================================
-  function generateQrSvg(text) {
-    // Generate an authentic high-contrast SVG representation of a QR matrix
-    // Using a deterministic matrix pattern based on the text string
-    const size = 25;
-    const matrix = Array(size).fill(0).map(() => Array(size).fill(0));
-
-    // Corner Finder Patterns (7x7)
-    function drawFinder(r, c) {
-      for (let i = 0; i < 7; i++) {
-        for (let j = 0; j < 7; j++) {
-          if (
-            i === 0 || i === 6 || j === 0 || j === 6 ||
-            (i >= 2 && i <= 4 && j >= 2 && j <= 4)
-          ) {
-            matrix[r + i][c + j] = 1;
-          }
-        }
-      }
-    }
-    drawFinder(0, 0);
-    drawFinder(0, size - 7);
-    drawFinder(size - 7, 0);
-
-    // Timing patterns
-    for (let i = 8; i < size - 8; i++) {
-      matrix[6][i] = i % 2 === 0 ? 1 : 0;
-      matrix[i][6] = i % 2 === 0 ? 1 : 0;
-    }
-
-    // Deterministic pseudo-random payload fill based on string hash
-    let hash = 0;
-    for (let k = 0; k < text.length; k++) {
-      hash = ((hash << 5) - hash) + text.charCodeAt(k);
-      hash |= 0;
-    }
-
-    for (let r = 0; r < size; r++) {
-      for (let c = 0; c < size; c++) {
-        if (
-          (r < 8 && c < 8) ||
-          (r < 8 && c >= size - 8) ||
-          (r >= size - 8 && c < 8) ||
-          r === 6 || c === 6
-        ) {
-          continue; // Reserved
-        }
-        const val = Math.sin(hash * (r * size + c) + r * 13 + c * 17);
-        matrix[r][c] = val > 0 ? 1 : 0;
-      }
-    }
-
-    // Render to crisp vector SVG
-    let rects = '';
-    const cell = 8;
-    for (let r = 0; r < size; r++) {
-      for (let c = 0; c < size; c++) {
-        if (matrix[r][c] === 1) {
-          rects += `<rect x="${c * cell}" y="${r * cell}" width="${cell}" height="${cell}" fill="#1C1917" />`;
-        }
-      }
-    }
-
-    return `
-      <svg viewBox="0 0 ${size * cell} ${size * cell}" xmlns="http://www.w3.org/2000/svg" width="220" height="220" shape-rendering="crispEdges">
-        <rect width="${size * cell}" height="${size * cell}" fill="#FFFFFF"/>
-        ${rects}
-      </svg>
-    `;
-  }
 
   // ==========================================================================
   // 4. ДВИЖОК ИГРЫ: СОСТОЯНИЕ И ЛОГИКА
@@ -500,9 +431,11 @@
         // QR Modal
         modalQr: document.getElementById('modalQr'),
         qrCodeContainer: document.getElementById('qrCodeContainer'),
-        qrUrlText: document.getElementById('qrUrlText'),
+        qrUrlInput: document.getElementById('qrUrlInput'),
         btnCopyUrl: document.getElementById('btnCopyUrl'),
         copyUrlLabel: document.getElementById('copyUrlLabel'),
+        btnPresetGithub: document.getElementById('btnPresetGithub'),
+        btnPresetCurrent: document.getElementById('btnPresetCurrent'),
         btnCloseQr: document.getElementById('btnCloseQr'),
 
         // About Modal
@@ -582,6 +515,28 @@
       this.dom.btnQr.addEventListener('click', () => this.openQrModal());
       this.dom.btnCloseQr.addEventListener('click', () => this.hideModal(this.dom.modalQr));
       this.dom.btnCopyUrl.addEventListener('click', () => this.copyGameUrl());
+
+      if (this.dom.qrUrlInput) {
+        this.dom.qrUrlInput.addEventListener('input', () => {
+          this.renderQrCode(this.dom.qrUrlInput.value.trim());
+        });
+      }
+
+      if (this.dom.btnPresetGithub) {
+        this.dom.btnPresetGithub.addEventListener('click', () => {
+          const ghUrl = "https://github.com/s74001468-lab/Merchant-or-Speculator-";
+          this.dom.qrUrlInput.value = ghUrl;
+          this.renderQrCode(ghUrl);
+        });
+      }
+
+      if (this.dom.btnPresetCurrent) {
+        this.dom.btnPresetCurrent.addEventListener('click', () => {
+          const curUrl = window.location.href.split('#')[0];
+          this.dom.qrUrlInput.value = curUrl;
+          this.renderQrCode(curUrl);
+        });
+      }
 
       // About Modal
       this.dom.btnAbout.addEventListener('click', () => this.showModal(this.dom.modalAbout));
@@ -910,16 +865,45 @@
 
     openQrModal() {
       this.showModal(this.dom.modalQr);
+      this.renderQrCode();
     }
 
-    renderQrCode() {
-      const currentUrl = window.location.href.split('#')[0];
-      this.dom.qrUrlText.textContent = currentUrl;
-      this.dom.qrCodeContainer.innerHTML = generateQrSvg(currentUrl);
+    renderQrCode(customUrl) {
+      if (!this.dom.qrCodeContainer) return;
+      
+      let targetUrl = customUrl;
+      if (!targetUrl && this.dom.qrUrlInput) {
+        targetUrl = this.dom.qrUrlInput.value.trim();
+      }
+      if (!targetUrl) {
+        // If local, point to the real GitHub repository by default so phones scan & open it
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          targetUrl = "https://github.com/s74001468-lab/Merchant-or-Speculator-";
+        } else {
+          targetUrl = window.location.href.split('#')[0];
+        }
+      }
+
+      if (this.dom.qrUrlInput && !customUrl) {
+        this.dom.qrUrlInput.value = targetUrl;
+      }
+
+      this.dom.qrCodeContainer.innerHTML = '';
+
+      if (typeof QRCode !== 'undefined') {
+        new QRCode(this.dom.qrCodeContainer, {
+          text: targetUrl,
+          width: 220,
+          height: 220,
+          colorDark: "#1C1917",
+          colorLight: "#FFFFFF",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
     }
 
     copyGameUrl() {
-      const url = this.dom.qrUrlText.textContent;
+      const url = this.dom.qrUrlInput ? this.dom.qrUrlInput.value.trim() : window.location.href;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(() => {
           this.dom.copyUrlLabel.textContent = "СКОПИРОВАНО! ✓";

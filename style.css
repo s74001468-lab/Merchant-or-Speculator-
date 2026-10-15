@@ -167,7 +167,7 @@ body {
 
 .signboard-title {
   font-family: var(--font-serif-display);
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--cinnabar);
@@ -177,7 +177,7 @@ body {
 }
 
 .signboard-sub {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--ink-secondary);
   letter-spacing: 0.02em;
@@ -317,7 +317,7 @@ body {
 
 .scale-name {
   font-family: var(--font-serif-display);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--ink-black);
@@ -326,7 +326,7 @@ body {
 }
 
 .scale-sub {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--ink-muted);
 }
@@ -338,13 +338,13 @@ body {
 }
 
 .level-tag {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   background-color: var(--bg-page-tint);
   border: 1px solid #D6CEBE;
-  padding: 1px 5px;
+  padding: 2px 6px;
   border-radius: 2px;
   color: var(--ink-secondary);
   margin-bottom: 2px;
@@ -370,7 +370,7 @@ body {
 }
 
 .scale-number {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--ink-black);
   line-height: 1;
@@ -378,7 +378,7 @@ body {
 }
 
 .scale-max {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--ink-muted);
 }
@@ -392,7 +392,7 @@ body {
 
 .meter-track {
   width: 100%;
-  height: 16px;
+  height: 20px;
   background-color: #EDE7D8;
   border: var(--border-thick);
   border-radius: 2px;
@@ -622,7 +622,7 @@ body {
 }
 
 .char-avatar {
-  font-size: 26px;
+  font-size: 32px;
   line-height: 1;
 }
 
@@ -632,7 +632,7 @@ body {
 }
 
 .char-role {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.1em;
   color: var(--cinnabar);
@@ -641,7 +641,7 @@ body {
 
 .char-name {
   font-family: var(--font-serif-display);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
   color: var(--ink-black);
   letter-spacing: 0.02em;
@@ -654,19 +654,19 @@ body {
 
 .dilemma-title {
   font-family: var(--font-serif-display);
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--ink-black);
   letter-spacing: 0.02em;
-  line-height: 1.2;
-  margin-bottom: 6px;
+  line-height: 1.25;
+  margin-bottom: 8px;
 }
 
 .dilemma-text {
-  font-size: 19px;
-  font-weight: 500;
+  font-size: 23px;
+  font-weight: 600;
   color: var(--ink-black);
-  line-height: 1.45;
+  line-height: 1.48;
   letter-spacing: 0.01em;
 }
 
@@ -740,14 +740,14 @@ body {
 
 .key-shortcut {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   color: var(--ink-muted);
 }
 
 .path-title {
   font-family: var(--font-serif-display);
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--ink-black);
@@ -756,7 +756,7 @@ body {
 }
 
 .path-subtitle {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: var(--ink-muted);
@@ -764,7 +764,7 @@ body {
 }
 
 .choice-badge-accent {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -787,7 +787,7 @@ body {
 }
 
 .choice-btn-quote {
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 700;
   color: var(--ink-black);
   line-height: 1.35;
@@ -807,9 +807,9 @@ body {
 
 .preview-item {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
-  padding: 1px 6px;
+  padding: 2px 8px;
   border-radius: 2px;
 }
 
@@ -1517,36 +1517,122 @@ kbd {
   margin: 0 auto;
 }
 
+.qr-code-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background-color: #FFF;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-hard-sm);
+  margin: 0 auto;
+  min-height: 244px;
+  min-width: 244px;
+}
+
+.qr-code-display canvas,
+.qr-code-display img,
 .qr-code-display svg {
   display: block;
-  width: 220px;
-  height: 220px;
+  margin: 0 auto;
+  max-width: 220px;
+  max-height: 220px;
+}
+
+.qr-url-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.qr-input-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
 }
 
 .qr-url-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--bg-page);
-  border: var(--border-thin);
-  padding: 6px 10px;
+  background-color: #FFF;
+  border: var(--border-thick);
+  padding: 4px;
   gap: 8px;
+  box-shadow: var(--shadow-hard-sm);
 }
 
-.qr-url-text {
+.qr-input-field {
+  flex: 1;
+  border: none;
+  background: transparent;
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 700;
   color: var(--ink-black);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  padding: 6px 8px;
+  outline: none;
+  min-width: 0;
+}
+
+.qr-presets-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-tiny {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .qr-hint {
   font-size: 12px;
   font-weight: 600;
   color: var(--ink-muted);
+}
+
+/* ==========================================================================
+   БОЛЬШОЙ ЭКРАН / ПРОЕКТОР В АУДИТОРИИ (WIDESCREEN & PROJECTOR ENHANCEMENT)
+   ========================================================================== */
+
+@media (min-width: 1200px) and (min-height: 750px) {
+  .signboard-title {
+    font-size: 32px;
+  }
+  .scale-name {
+    font-size: 22px;
+  }
+  .scale-number {
+    font-size: 30px;
+  }
+  .dilemma-title {
+    font-size: 30px;
+  }
+  .dilemma-text {
+    font-size: 24px;
+    line-height: 1.5;
+  }
+  .choice-btn-quote {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1440px) and (min-height: 850px) {
+  .dilemma-title {
+    font-size: 32px;
+  }
+  .dilemma-text {
+    font-size: 25px;
+    line-height: 1.5;
+  }
+  .choice-btn-quote {
+    font-size: 23px;
+  }
 }
 
 /* 5. ABOUT MODAL CONTENT */
