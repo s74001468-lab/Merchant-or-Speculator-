@@ -618,6 +618,7 @@
         qrUrlInput: document.getElementById('qrUrlInput'),
         btnCopyUrl: document.getElementById('btnCopyUrl'),
         copyUrlLabel: document.getElementById('copyUrlLabel'),
+        btnPresetVercel: document.getElementById('btnPresetVercel'),
         btnPresetGithub: document.getElementById('btnPresetGithub'),
         btnPresetCurrent: document.getElementById('btnPresetCurrent'),
         btnCloseQr: document.getElementById('btnCloseQr'),
@@ -633,7 +634,7 @@
 
     init() {
       this.updateSoundButtonUI();
-      this.renderQrCode();
+      this.renderQrCode("https://mors-azure.vercel.app/");
       this.bindEvents();
       this.startNewGame();
     }
@@ -714,6 +715,14 @@
       if (this.dom.qrUrlInput) {
         this.dom.qrUrlInput.addEventListener('input', () => {
           this.renderQrCode(this.dom.qrUrlInput.value.trim());
+        });
+      }
+
+      if (this.dom.btnPresetVercel) {
+        this.dom.btnPresetVercel.addEventListener('click', () => {
+          const vercelUrl = "https://mors-azure.vercel.app/";
+          this.dom.qrUrlInput.value = vercelUrl;
+          this.renderQrCode(vercelUrl);
         });
       }
 
@@ -1135,19 +1144,14 @@
       if (!this.dom.qrCodeContainer) return;
       
       let targetUrl = customUrl;
-      if (!targetUrl && this.dom.qrUrlInput) {
+      if (!targetUrl && this.dom.qrUrlInput && this.dom.qrUrlInput.value.trim()) {
         targetUrl = this.dom.qrUrlInput.value.trim();
       }
       if (!targetUrl) {
-        // If local, point to the real GitHub repository by default so phones scan & open it
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-          targetUrl = "https://github.com/s74001468-lab/Merchant-or-Speculator-";
-        } else {
-          targetUrl = window.location.href.split('#')[0];
-        }
+        targetUrl = "https://mors-azure.vercel.app/";
       }
 
-      if (this.dom.qrUrlInput && !customUrl) {
+      if (this.dom.qrUrlInput) {
         this.dom.qrUrlInput.value = targetUrl;
       }
 
